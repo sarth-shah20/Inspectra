@@ -1,0 +1,3185 @@
+{
+  "experiment": "phmsa-cause-tfidf-v1",
+  "metadata": {
+    "task": "phmsa-cause",
+    "domain": "pipeline",
+    "input": "canonical clean_text only; source target field excluded",
+    "features": "word TF-IDF (1,2-grams)",
+    "labels": [
+      "equipment failure",
+      "corrosion failure",
+      "incorrect operation",
+      "excavation damage",
+      "other outside force damage",
+      "material failure of pipe or weld",
+      "natural force damage"
+    ],
+    "label_selection": "Chosen using training and validation support only; test remains sealed.",
+    "split_policy": "grouped",
+    "sklearn_version": "1.9.0",
+    "fixed_parameters": {
+      "C": 1.0,
+      "class_weight": "balanced"
+    },
+    "selection_metric": "none; fixed initial baseline",
+    "snapshot_manifest_sha256": "9bed4bef55631c86a9befed738dd053922a2362673e5d2241a1765d4c9e16795",
+    "eligible_records_by_split": {
+      "train": 2797,
+      "validation": 614,
+      "test": 599
+    },
+    "class_counts_by_split": {
+      "train": {
+        "corrosion failure": 625,
+        "equipment failure": 1264,
+        "excavation damage": 121,
+        "incorrect operation": 418,
+        "material failure of pipe or weld": 196,
+        "natural force damage": 104,
+        "other outside force damage": 69
+      },
+      "validation": {
+        "corrosion failure": 160,
+        "equipment failure": 275,
+        "excavation damage": 23,
+        "incorrect operation": 83,
+        "material failure of pipe or weld": 36,
+        "natural force damage": 25,
+        "other outside force damage": 12
+      },
+      "test": {
+        "corrosion failure": 128,
+        "equipment failure": 287,
+        "excavation damage": 25,
+        "incorrect operation": 89,
+        "material failure of pipe or weld": 34,
+        "natural force damage": 20,
+        "other outside force damage": 16
+      }
+    },
+    "test_set_usage": "evaluated once after fixed-configuration training"
+  },
+  "validation": {
+    "C": 1.0,
+    "class_weight": "balanced",
+    "records": 614,
+    "macro_f1": 0.6696705450030532,
+    "weighted_f1": 0.7966769385997848,
+    "per_class": {
+      "corrosion failure": {
+        "precision": 0.8666666666666667,
+        "recall": 0.89375,
+        "f1-score": 0.88,
+        "support": 160.0
+      },
+      "equipment failure": {
+        "precision": 0.8702290076335878,
+        "recall": 0.8290909090909091,
+        "f1-score": 0.8491620111731844,
+        "support": 275.0
+      },
+      "excavation damage": {
+        "precision": 0.7391304347826086,
+        "recall": 0.7391304347826086,
+        "f1-score": 0.7391304347826086,
+        "support": 23.0
+      },
+      "incorrect operation": {
+        "precision": 0.6458333333333334,
+        "recall": 0.7469879518072289,
+        "f1-score": 0.6927374301675978,
+        "support": 83.0
+      },
+      "material failure of pipe or weld": {
+        "precision": 0.5952380952380952,
+        "recall": 0.6944444444444444,
+        "f1-score": 0.6410256410256411,
+        "support": 36.0
+      },
+      "natural force damage": {
+        "precision": 0.5454545454545454,
+        "recall": 0.48,
+        "f1-score": 0.5106382978723404,
+        "support": 25.0
+      },
+      "other outside force damage": {
+        "precision": 0.75,
+        "recall": 0.25,
+        "f1-score": 0.375,
+        "support": 12.0
+      },
+      "accuracy": 0.7980456026058632,
+      "macro avg": {
+        "precision": 0.7160788690155481,
+        "recall": 0.6619148200178844,
+        "f1-score": 0.6696705450030532,
+        "support": 614.0
+      },
+      "weighted avg": {
+        "precision": 0.8023595203542429,
+        "recall": 0.7980456026058632,
+        "f1-score": 0.7966769385997848,
+        "support": 614.0
+      }
+    }
+  },
+  "test": {
+    "records": 599,
+    "macro_f1": 0.6607479858351814,
+    "weighted_f1": 0.7887091446504675,
+    "per_class": {
+      "corrosion failure": {
+        "precision": 0.859375,
+        "recall": 0.859375,
+        "f1-score": 0.859375,
+        "support": 128.0
+      },
+      "equipment failure": {
+        "precision": 0.8838951310861424,
+        "recall": 0.8222996515679443,
+        "f1-score": 0.851985559566787,
+        "support": 287.0
+      },
+      "excavation damage": {
+        "precision": 0.6666666666666666,
+        "recall": 0.96,
+        "f1-score": 0.7868852459016393,
+        "support": 25.0
+      },
+      "incorrect operation": {
+        "precision": 0.6767676767676768,
+        "recall": 0.7528089887640449,
+        "f1-score": 0.7127659574468085,
+        "support": 89.0
+      },
+      "material failure of pipe or weld": {
+        "precision": 0.4528301886792453,
+        "recall": 0.7058823529411765,
+        "f1-score": 0.5517241379310345,
+        "support": 34.0
+      },
+      "natural force damage": {
+        "precision": 0.75,
+        "recall": 0.45,
+        "f1-score": 0.5625,
+        "support": 20.0
+      },
+      "other outside force damage": {
+        "precision": 0.75,
+        "recall": 0.1875,
+        "f1-score": 0.3,
+        "support": 16.0
+      },
+      "accuracy": 0.7896494156928213,
+      "macro avg": {
+        "precision": 0.7199335233142473,
+        "recall": 0.6768379990390236,
+        "f1-score": 0.6607479858351814,
+        "support": 599.0
+      },
+      "weighted avg": {
+        "precision": 0.8062990299429167,
+        "recall": 0.7896494156928213,
+        "f1-score": 0.7887091446504675,
+        "support": 599.0
+      }
+    }
+  },
+  "test_predictions": [
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:7",
+      "actual": "corrosion failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:29",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:30",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:31",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:38",
+      "actual": "equipment failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:41",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:42",
+      "actual": "equipment failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:44",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:53",
+      "actual": "corrosion failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:69",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:70",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:77",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:87",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:108",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:114",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:122",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:127",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:188",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:199",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:205",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:219",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:222",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:244",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:261",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:267",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:289",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:291",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:298",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:302",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:305",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:315",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:317",
+      "actual": "equipment failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:329",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:333",
+      "actual": "corrosion failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:334",
+      "actual": "other outside force damage",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:342",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:355",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:359",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:371",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:482",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:486",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:492",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:499",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:507",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:510",
+      "actual": "other outside force damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:515",
+      "actual": "excavation damage",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:516",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:524",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:525",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:530",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:531",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:543",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:544",
+      "actual": "equipment failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:548",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:561",
+      "actual": "incorrect operation",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:570",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:573",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:585",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:596",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:598",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:603",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:610",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:618",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:620",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:640",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:642",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:653",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:654",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:678",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:774",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:778",
+      "actual": "equipment failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:785",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:786",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:790",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:791",
+      "actual": "incorrect operation",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:796",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:802",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:804",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:818",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:821",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:826",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:829",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:848",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:849",
+      "actual": "material failure of pipe or weld",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:858",
+      "actual": "other outside force damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:863",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:864",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:876",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:879",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:883",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:902",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:903",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:921",
+      "actual": "corrosion failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:924",
+      "actual": "equipment failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:942",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:956",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:963",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1028",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1071",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1072",
+      "actual": "equipment failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1087",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1096",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1101",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1106",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1110",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1112",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1126",
+      "actual": "other outside force damage",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1133",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1137",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1154",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1166",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1180",
+      "actual": "material failure of pipe or weld",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1183",
+      "actual": "incorrect operation",
+      "predicted": "other outside force damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1188",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1215",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1224",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1228",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1304",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1306",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1365",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1366",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1376",
+      "actual": "other outside force damage",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1377",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1386",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1400",
+      "actual": "other outside force damage",
+      "predicted": "natural force damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1406",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1412",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1417",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1418",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1428",
+      "actual": "natural force damage",
+      "predicted": "natural force damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1435",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1440",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1448",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1455",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1459",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1463",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1468",
+      "actual": "corrosion failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1471",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1478",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1480",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1491",
+      "actual": "incorrect operation",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1493",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1499",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1500",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1505",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1507",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1516",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1522",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1527",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1530",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1541",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1543",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1555",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1558",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1560",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1574",
+      "actual": "natural force damage",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1580",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1582",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1584",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1706",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1727",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1731",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1764",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1766",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1770",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1777",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1781",
+      "actual": "incorrect operation",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1784",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1785",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1787",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1789",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1826",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1831",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1845",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1866",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1871",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1877",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1880",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1882",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1883",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1887",
+      "actual": "natural force damage",
+      "predicted": "natural force damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1915",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:1963",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2030",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2035",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2047",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2053",
+      "actual": "incorrect operation",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2059",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2083",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2087",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2089",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2093",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2094",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2098",
+      "actual": "incorrect operation",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2099",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2100",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2105",
+      "actual": "material failure of pipe or weld",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2113",
+      "actual": "natural force damage",
+      "predicted": "natural force damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2122",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2137",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2146",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2149",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2150",
+      "actual": "material failure of pipe or weld",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2158",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2161",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2175",
+      "actual": "corrosion failure",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2201",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2208",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2223",
+      "actual": "material failure of pipe or weld",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2226",
+      "actual": "incorrect operation",
+      "predicted": "natural force damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2236",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2239",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2244",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2248",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2249",
+      "actual": "natural force damage",
+      "predicted": "natural force damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2252",
+      "actual": "equipment failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2255",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2260",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2266",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2275",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2418",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2420",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2425",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2434",
+      "actual": "material failure of pipe or weld",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2453",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2459",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2460",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2464",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2465",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2469",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2472",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2478",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2488",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2489",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2494",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2511",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2514",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2531",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2542",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2552",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2556",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2563",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2564",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2569",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2570",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2578",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2586",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2598",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2601",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2624",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2635",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2644",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2651",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2653",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2658",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2662",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2663",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2664",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2679",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2692",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2715",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2794",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2825",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2828",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2835",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2836",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2844",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2864",
+      "actual": "natural force damage",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2866",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2869",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2871",
+      "actual": "incorrect operation",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2878",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2880",
+      "actual": "equipment failure",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2882",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2887",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2890",
+      "actual": "natural force damage",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2899",
+      "actual": "other outside force damage",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2903",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2904",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2905",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2918",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2932",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2936",
+      "actual": "natural force damage",
+      "predicted": "natural force damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2946",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2957",
+      "actual": "other outside force damage",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2960",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2965",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2974",
+      "actual": "natural force damage",
+      "predicted": "natural force damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2976",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2980",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2986",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2993",
+      "actual": "incorrect operation",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:2999",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3008",
+      "actual": "corrosion failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3032",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3061",
+      "actual": "incorrect operation",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3063",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3069",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3071",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3075",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3076",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3088",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3101",
+      "actual": "material failure of pipe or weld",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3103",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3105",
+      "actual": "corrosion failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3121",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3129",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3186",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3256",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3282",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3289",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3293",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3301",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3307",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3310",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3323",
+      "actual": "other outside force damage",
+      "predicted": "other outside force damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3333",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3337",
+      "actual": "corrosion failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3339",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3351",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3358",
+      "actual": "equipment failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3363",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3365",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3367",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3372",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3376",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3384",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3390",
+      "actual": "incorrect operation",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3410",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3414",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3416",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3419",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3423",
+      "actual": "equipment failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3424",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3429",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3453",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3455",
+      "actual": "incorrect operation",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3461",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3469",
+      "actual": "equipment failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3472",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3476",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3477",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3478",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3483",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3493",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3494",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3499",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3510",
+      "actual": "natural force damage",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3514",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3580",
+      "actual": "incorrect operation",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3650",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3658",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3665",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3668",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3680",
+      "actual": "natural force damage",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3684",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3685",
+      "actual": "corrosion failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3686",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3689",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3690",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3700",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3708",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3711",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3718",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3729",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3733",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3735",
+      "actual": "incorrect operation",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3736",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3740",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3752",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3758",
+      "actual": "corrosion failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3770",
+      "actual": "corrosion failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3780",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3781",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3784",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3786",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3787",
+      "actual": "natural force damage",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3793",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3803",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3808",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3809",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3826",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3833",
+      "actual": "corrosion failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3841",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3846",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3854",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3857",
+      "actual": "other outside force damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3858",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3863",
+      "actual": "equipment failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3864",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3865",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3868",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3869",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3870",
+      "actual": "corrosion failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3874",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3885",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3890",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3913",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3919",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3925",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3929",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3931",
+      "actual": "incorrect operation",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3936",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3940",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3942",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3949",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3950",
+      "actual": "equipment failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3956",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3963",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3964",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4131",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4137",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4139",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4151",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4165",
+      "actual": "incorrect operation",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4168",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4173",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4179",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4189",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4190",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4191",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4200",
+      "actual": "other outside force damage",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4201",
+      "actual": "equipment failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4212",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4222",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4228",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4233",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4239",
+      "actual": "incorrect operation",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4265",
+      "actual": "equipment failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4266",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4274",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4282",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4284",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4300",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4311",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4333",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4350",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4364",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4365",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4375",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4395",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4406",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4410",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4421",
+      "actual": "equipment failure",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4422",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4424",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4432",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4456",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4460",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4538",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4575",
+      "actual": "natural force damage",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4589",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4594",
+      "actual": "equipment failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4597",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4604",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4607",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4614",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4618",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4622",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4624",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4630",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4645",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4649",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4658",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4661",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4667",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4669",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4683",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4685",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4699",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4700",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4707",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4710",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4712",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4713",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4721",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4726",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4733",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4736",
+      "actual": "natural force damage",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4739",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4742",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4743",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4749",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4750",
+      "actual": "incorrect operation",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4758",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4768",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4771",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4772",
+      "actual": "equipment failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4777",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4781",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4782",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4786",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4795",
+      "actual": "other outside force damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4804",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4806",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4825",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4836",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:4982",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5006",
+      "actual": "corrosion failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5019",
+      "actual": "corrosion failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5023",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5024",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5044",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5049",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5050",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5076",
+      "actual": "incorrect operation",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5086",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5096",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5100",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5102",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5106",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5115",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5122",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5134",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5145",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5147",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5171",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5173",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5176",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5180",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5181",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5183",
+      "actual": "natural force damage",
+      "predicted": "natural force damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5190",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5191",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5192",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5199",
+      "actual": "incorrect operation",
+      "predicted": "natural force damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5241",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5310",
+      "actual": "equipment failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5338",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5351",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5354",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5370",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5394",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5397",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5399",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5448",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5461",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5463",
+      "actual": "material failure of pipe or weld",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5471",
+      "actual": "equipment failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5477",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5517",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5519",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5525",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5531",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5534",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5539",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5556",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5580",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5581",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5594",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5597",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5602",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5607",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5610",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5618",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5620",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5683",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5711",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5719",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5720",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5730",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5747",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5748",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5758",
+      "actual": "material failure of pipe or weld",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5764",
+      "actual": "material failure of pipe or weld",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5771",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5779",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5804",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5805",
+      "actual": "equipment failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5808",
+      "actual": "natural force damage",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5815",
+      "actual": "equipment failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5823",
+      "actual": "corrosion failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5841",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5844",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5847",
+      "actual": "incorrect operation",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5853",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5855",
+      "actual": "equipment failure",
+      "predicted": "equipment failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5859",
+      "actual": "material failure of pipe or weld",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5883",
+      "actual": "corrosion failure",
+      "predicted": "material failure of pipe or weld"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:5928",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:6003",
+      "actual": "natural force damage",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:65d09518baf8280b:1220",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:65d09518baf8280b:1363",
+      "actual": "other outside force damage",
+      "predicted": "other outside force damage"
+    },
+    {
+      "record_id": "phmsa:65d09518baf8280b:1381",
+      "actual": "other outside force damage",
+      "predicted": "other outside force damage"
+    },
+    {
+      "record_id": "phmsa:65d09518baf8280b:1400",
+      "actual": "natural force damage",
+      "predicted": "natural force damage"
+    },
+    {
+      "record_id": "phmsa:65d09518baf8280b:1404",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:65d09518baf8280b:1408",
+      "actual": "other outside force damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:65d09518baf8280b:1419",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:65d09518baf8280b:1462",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7bbdd8d73255b897:1856",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7bbdd8d73255b897:1858",
+      "actual": "excavation damage",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7bbdd8d73255b897:1871",
+      "actual": "other outside force damage",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7bbdd8d73255b897:1878",
+      "actual": "corrosion failure",
+      "predicted": "corrosion failure"
+    },
+    {
+      "record_id": "phmsa:7bbdd8d73255b897:1884",
+      "actual": "natural force damage",
+      "predicted": "natural force damage"
+    },
+    {
+      "record_id": "phmsa:7bbdd8d73255b897:1891",
+      "actual": "equipment failure",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7bbdd8d73255b897:1897",
+      "actual": "equipment failure",
+      "predicted": "excavation damage"
+    },
+    {
+      "record_id": "phmsa:7bbdd8d73255b897:1898",
+      "actual": "incorrect operation",
+      "predicted": "incorrect operation"
+    },
+    {
+      "record_id": "phmsa:7bbdd8d73255b897:1899",
+      "actual": "natural force damage",
+      "predicted": "material failure of pipe or weld"
+    }
+  ]
+}

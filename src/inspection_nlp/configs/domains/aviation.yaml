@@ -1,0 +1,4 @@
+version: aviation-v1
+entities:
+  COMPONENT: [landing gear, actuator, turbine blade, fuel pump, hydraulic pump, fuselage, propeller]
+  DEFECT: [delaminated, delamination, inoperative]

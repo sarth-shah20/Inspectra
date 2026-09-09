@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "canonical_rows": 705851,
+  "training_sample_rows": 80477,
+  "checks": [
+    "raw checksums",
+    "frozen artifact checksums",
+    "all assignment policies",
+    "group isolation",
+    "full canonical JSONL/Parquet round-trip",
+    "training membership"
+  ]
+}

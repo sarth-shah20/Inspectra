@@ -1,0 +1,65 @@
+{
+  "purpose": "integration smoke test; match counts are not precision, recall, or F1",
+  "dictionary_origin": "hand-authored starter terms; no tuning on pilot test text",
+  "records_by_domain": {
+    "aviation": 2750,
+    "pipeline": 1414,
+    "construction": 750
+  },
+  "generic_entity_counts": {
+    "aviation:DEFECT": 1664,
+    "aviation:CORRECTIVE_ACTION": 1343,
+    "aviation:REPORTED_SEVERITY": 136,
+    "aviation:MEASUREMENT": 117,
+    "aviation:MATERIAL": 20,
+    "aviation:DATE": 11,
+    "aviation:INSPECTION_METHOD": 12,
+    "pipeline:CORRECTIVE_ACTION": 555,
+    "pipeline:DEFECT": 2860,
+    "pipeline:MEASUREMENT": 218,
+    "pipeline:MATERIAL": 310,
+    "pipeline:INSPECTION_METHOD": 33,
+    "pipeline:REPORTED_SEVERITY": 63,
+    "pipeline:DATE": 2,
+    "construction:MATERIAL": 275,
+    "construction:DEFECT": 225,
+    "construction:REPORTED_SEVERITY": 6,
+    "construction:CORRECTIVE_ACTION": 7,
+    "construction:MEASUREMENT": 1
+  },
+  "adapted_entity_counts": {
+    "aviation:DEFECT": 1930,
+    "aviation:CORRECTIVE_ACTION": 1343,
+    "aviation:REPORTED_SEVERITY": 136,
+    "aviation:COMPONENT": 250,
+    "aviation:MEASUREMENT": 117,
+    "aviation:MATERIAL": 20,
+    "aviation:DATE": 11,
+    "aviation:INSPECTION_METHOD": 12,
+    "pipeline:COMPONENT": 3370,
+    "pipeline:CORRECTIVE_ACTION": 555,
+    "pipeline:DEFECT": 2702,
+    "pipeline:CAUSE": 168,
+    "pipeline:MEASUREMENT": 218,
+    "pipeline:MATERIAL": 355,
+    "pipeline:INSPECTION_METHOD": 33,
+    "pipeline:REPORTED_SEVERITY": 63,
+    "pipeline:DATE": 2,
+    "construction:MATERIAL": 275,
+    "construction:DEFECT": 225,
+    "construction:COMPONENT": 707,
+    "construction:REPORTED_SEVERITY": 6,
+    "construction:CORRECTIVE_ACTION": 7,
+    "construction:MEASUREMENT": 1
+  },
+  "mapping_status_counts": {
+    "review_required": 2689,
+    "unmapped": 2225
+  },
+  "limitations": [
+    "uncalibrated confidence",
+    "heuristic assertion scope",
+    "no gold annotations",
+    "no demonstrated generalization accuracy"
+  ]
+}

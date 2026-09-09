@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "inspectra"
+version = "0.1.0"
+description = "Domain-adaptive inspection narrative processing"
+requires-python = ">=3.11"
+dependencies = ["pydantic>=2,<3", "openpyxl>=3.1,<4", "pyarrow>=18", "streamlit>=1.40", "pymupdf>=1.24", "python-docx>=1.1", "spacy>=3.8,<4", "pyyaml>=6", "scikit-learn>=1.5,<2", "joblib>=1.4"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.9"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.setuptools.package-data]
+inspection_nlp = ["configs/*.yaml", "configs/domains/*.yaml"]

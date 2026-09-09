@@ -1,0 +1,114 @@
+"""Transparent, uncalibrated rules baseline. No source labels used as features."""
+
+import re
+from functools import lru_cache
+from importlib.resources import files
+
+import spacy
+import yaml
+
+from .schemas import Entity, Record
+
+DOMAINS = {"general", "construction", "aviation", "pipeline"}
+MEASUREMENT = re.compile(
+    r"(?<!\w)\d+(?:\.\d+)?\s*(?:mm|cm|km|inches|inch|psi|kPa|MPa|bar|°C|°F|ft|m)\b",
+    re.IGNORECASE,
+)
+DATE = re.compile(r"\b\d{4}-\d{2}-\d{2}\b")
+BOUNDARY = re.compile(r"[.!?;]|\b(?:but|however|although)\b", re.IGNORECASE)
+
+
+@lru_cache(maxsize=4)
+def pipeline(domain: str):
+    if domain not in DOMAINS:
+        raise ValueError(f"Unknown domain: {domain}")
+    nlp = spacy.blank("en")
+    ruler = nlp.add_pipe("entity_ruler", config={"phrase_matcher_attr": "LOWER"})
+    resources = [files("inspection_nlp").joinpath("configs/generic.yaml")]
+    if domain != "general":
+        resources.append(files("inspection_nlp").joinpath(f"configs/domains/{domain}.yaml"))
+    patterns, versions = [], []
+    for resource in resources:
+        config = yaml.safe_load(resource.read_text())
+        versions.append(config["version"])
+        for label, terms in config["entities"].items():
+            patterns.extend({"label": label, "pattern": term} for term in terms)
+    ruler.add_patterns(patterns)
+    return nlp, "+".join(versions)
+
+
+def assertion(text: str, start: int, end: int) -> str:
+    """Local clause cues; bounded heuristic rather than syntactic assertion model."""
+    before = BOUNDARY.split(text[:start])[-1].lower()
+    after = BOUNDARY.split(text[end:])[0].lower()
+    # Limit scope at another coordinated clause with its own explicit subject/verb.
+    after = re.split(r"\b(?:and|or)\b", after)[0]
+    before = " ".join(before.split()[-6:])
+    after = " ".join(after.split()[:6])
+    if re.search(r"\b(?:no|without|neither|denies)\b", before) or re.match(
+        r"\s*(?:was |is |were )?(?:not (?:found|observed|detected)|absent)\b", after
+    ):
+        return "negated"
+    if re.search(r"\b(?:possible|possibly|suspected|may|might|potential)\b", before) or re.match(
+        r"\s*(?:was |is )?(?:suspected|possible)\b", after
+    ):
+        return "possible"
+    if re.search(r"\b(?:previous|previously|historical|history of)\b", before):
+        return "historical"
+    if re.search(r"\b(?:repaired|resolved|rectified|corrected)\s*$", before) or re.match(
+        r"\s*(?:(?:has|have) been |was |were |is )?(?:repaired|resolved|rectified|corrected)\b",
+        after,
+    ):
+        return "resolved"
+    return "present"
+
+
+def extract(record: Record, *, use_domain: bool = True) -> Record:
+    domain = record.domain if use_domain else "general"
+    nlp, version = pipeline(domain)
+    text = record.display_text
+    candidates = []
+    for pattern, label in [(MEASUREMENT, "MEASUREMENT"), (DATE, "DATE")]:
+        for match in pattern.finditer(text):
+            candidates.append((match.start(), match.end(), label, "regex", 0.95))
+    for span in nlp(text).ents:
+        candidates.append((span.start_char, span.end_char, span.label_, "ruler", 0.75))
+    entities = []
+    for start, end, label, method, confidence in candidates:
+        if any(start < e.evidence_end and end > e.evidence_start for e in entities):
+            continue
+        entities.append(
+            Entity(
+                label=label,
+                text=text[start:end],
+                evidence_start=start,
+                evidence_end=end,
+                assertion=assertion(text, start, end),
+                confidence=confidence,
+                extraction_method=method,
+            )
+        )
+    entities.sort(key=lambda e: e.evidence_start)
+    defects = [e for e in entities if e.label == "DEFECT"]
+    assertions = {e.assertion for e in defects}
+    payload = record.model_dump()
+    metadata = dict(record.document_metadata)
+    metadata.update(
+        extractor_version=version,
+        confidence_kind="uncalibrated_rule_score",
+        review_reason="Vocabulary coverage and assertion scope require human review",
+    )
+    payload.update(
+        entities=[e.model_dump() for e in entities],
+        document_metadata=metadata,
+        mapping_status="review_required" if defects else "unmapped",
+        assertion_status=next(iter(assertions)) if len(assertions) == 1 else "unknown",
+        reported_severity=None,
+    )
+    # Severity is explicit evidence only, never inferred from defect type.
+    severity = [
+        e.text for e in entities if e.label == "REPORTED_SEVERITY" and e.assertion == "present"
+    ]
+    if severity:
+        payload["reported_severity"] = "; ".join(dict.fromkeys(severity))
+    return Record.model_validate(payload)

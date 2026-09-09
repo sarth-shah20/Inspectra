@@ -1,2 +1,11 @@
 data/raw/*
 PROJECT_IMPLEMENTATION_PLAN.md
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+data/interim/
+data/processed/
+data/annotations/
+models/

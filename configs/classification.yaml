@@ -1,0 +1,30 @@
+version: classification-v1
+faa_part_condition:
+  split_column: temporal
+  labels:
+    - corroded
+    - cracked
+    - inoperative
+    - damaged
+    - failed
+    - unknown
+    - broken
+    - delaminated
+    - missing
+    - loose
+    - worn
+    - leaking
+    - low pressure
+    - dented
+  selection_rule: "Chosen using training and validation support only; test remains sealed."
+phmsa_cause:
+  split_column: grouped
+  labels:
+    - equipment failure
+    - corrosion failure
+    - incorrect operation
+    - excavation damage
+    - other outside force damage
+    - material failure of pipe or weld
+    - natural force damage
+  selection_rule: "Chosen using training and validation support only; test remains sealed."

@@ -1,0 +1,5 @@
+version: pipeline-v1
+entities:
+  COMPONENT: [pipeline, pipe, valve, weld, fitting, flange, compressor]
+  MATERIAL: [cast iron, polyethylene]
+  CAUSE: [excavation damage, external corrosion, internal corrosion]

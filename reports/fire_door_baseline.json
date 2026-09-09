@@ -1,0 +1,3958 @@
+{
+  "experiment": "fire-door-tfidf-v1",
+  "metadata": {
+    "model": "word+character TF-IDF + LogisticRegression",
+    "sklearn_version": "1.9.0",
+    "selection_metric": "validation macro F1",
+    "selected_parameters": {
+      "C": 3.0,
+      "class_weight": "balanced"
+    },
+    "snapshot_manifest_sha256": "9bed4bef55631c86a9befed738dd053922a2362673e5d2241a1765d4c9e16795",
+    "eligible_records_by_split": {
+      "train": 2107,
+      "validation": 679,
+      "test": 682
+    },
+    "class_counts_by_split": {
+      "train": {
+        "Absence of mechanical operation components": 601,
+        "Absence of sealing components": 205,
+        "Contamination": 57,
+        "Dent": 152,
+        "Door closer adjustment defect": 311,
+        "Frame gap": 524,
+        "Others": 109,
+        "Scratch": 148
+      },
+      "validation": {
+        "Absence of mechanical operation components": 186,
+        "Absence of sealing components": 62,
+        "Contamination": 19,
+        "Dent": 51,
+        "Door closer adjustment defect": 103,
+        "Frame gap": 170,
+        "Others": 38,
+        "Scratch": 50
+      },
+      "test": {
+        "Absence of mechanical operation components": 202,
+        "Absence of sealing components": 62,
+        "Contamination": 19,
+        "Dent": 48,
+        "Door closer adjustment defect": 102,
+        "Frame gap": 164,
+        "Others": 36,
+        "Scratch": 49
+      }
+    },
+    "test_set_usage": "evaluated once after validation-based selection; never used to choose parameters",
+    "limitations": [
+      "Source-provided document labels are not token-level entity annotations.",
+      "Metrics apply only to the duplicate-safe supplied fire-door split.",
+      "No claim of transfer to aviation, pipeline, vendors, or unseen terminology."
+    ]
+  },
+  "validation_candidates": [
+    {
+      "C": 0.3,
+      "class_weight": null,
+      "records": 679,
+      "macro_f1": 0.6163686464730314,
+      "weighted_f1": 0.7520983344684666,
+      "per_class": {
+        "Absence of mechanical operation components": {
+          "precision": 0.8846153846153846,
+          "recall": 0.989247311827957,
+          "f1-score": 0.934010152284264,
+          "support": 186.0
+        },
+        "Absence of sealing components": {
+          "precision": 0.8235294117647058,
+          "recall": 0.6774193548387096,
+          "f1-score": 0.7433628318584071,
+          "support": 62.0
+        },
+        "Contamination": {
+          "precision": 0.8,
+          "recall": 0.21052631578947367,
+          "f1-score": 0.3333333333333333,
+          "support": 19.0
+        },
+        "Dent": {
+          "precision": 0.6153846153846154,
+          "recall": 0.6274509803921569,
+          "f1-score": 0.6213592233009708,
+          "support": 51.0
+        },
+        "Door closer adjustment defect": {
+          "precision": 0.8690476190476191,
+          "recall": 0.7087378640776699,
+          "f1-score": 0.7807486631016043,
+          "support": 103.0
+        },
+        "Frame gap": {
+          "precision": 0.7130044843049327,
+          "recall": 0.9352941176470588,
+          "f1-score": 0.8091603053435115,
+          "support": 170.0
+        },
+        "Others": {
+          "precision": 0.3333333333333333,
+          "recall": 0.02631578947368421,
+          "f1-score": 0.04878048780487805,
+          "support": 38.0
+        },
+        "Scratch": {
+          "precision": 0.6415094339622641,
+          "recall": 0.68,
+          "f1-score": 0.6601941747572816,
+          "support": 50.0
+        },
+        "accuracy": 0.7790868924889544,
+        "macro avg": {
+          "precision": 0.7100530353016069,
+          "recall": 0.6068739667558387,
+          "f1-score": 0.6163686464730314,
+          "support": 679.0
+        },
+        "weighted avg": {
+          "precision": 0.76236628263772,
+          "recall": 0.7790868924889544,
+          "f1-score": 0.7520983344684666,
+          "support": 679.0
+        }
+      }
+    },
+    {
+      "C": 0.3,
+      "class_weight": "balanced",
+      "records": 679,
+      "macro_f1": 0.7247776335940539,
+      "weighted_f1": 0.7993628383026177,
+      "per_class": {
+        "Absence of mechanical operation components": {
+          "precision": 0.9560439560439561,
+          "recall": 0.9354838709677419,
+          "f1-score": 0.9456521739130435,
+          "support": 186.0
+        },
+        "Absence of sealing components": {
+          "precision": 0.6835443037974683,
+          "recall": 0.8709677419354839,
+          "f1-score": 0.7659574468085106,
+          "support": 62.0
+        },
+        "Contamination": {
+          "precision": 0.7894736842105263,
+          "recall": 0.7894736842105263,
+          "f1-score": 0.7894736842105263,
+          "support": 19.0
+        },
+        "Dent": {
+          "precision": 0.6078431372549019,
+          "recall": 0.6078431372549019,
+          "f1-score": 0.6078431372549019,
+          "support": 51.0
+        },
+        "Door closer adjustment defect": {
+          "precision": 0.8173076923076923,
+          "recall": 0.8252427184466019,
+          "f1-score": 0.821256038647343,
+          "support": 103.0
+        },
+        "Frame gap": {
+          "precision": 0.8518518518518519,
+          "recall": 0.8117647058823529,
+          "f1-score": 0.8313253012048193,
+          "support": 170.0
+        },
+        "Others": {
+          "precision": 0.42857142857142855,
+          "recall": 0.3157894736842105,
+          "f1-score": 0.36363636363636365,
+          "support": 38.0
+        },
+        "Scratch": {
+          "precision": 0.6481481481481481,
+          "recall": 0.7,
+          "f1-score": 0.6730769230769231,
+          "support": 50.0
+        },
+        "accuracy": 0.801178203240059,
+        "macro avg": {
+          "precision": 0.7228480252732468,
+          "recall": 0.7320706665477275,
+          "f1-score": 0.7247776335940539,
+          "support": 679.0
+        },
+        "weighted avg": {
+          "precision": 0.8010229034981556,
+          "recall": 0.801178203240059,
+          "f1-score": 0.7993628383026177,
+          "support": 679.0
+        }
+      }
+    },
+    {
+      "C": 1.0,
+      "class_weight": null,
+      "records": 679,
+      "macro_f1": 0.6885664290208899,
+      "weighted_f1": 0.7965889917519597,
+      "per_class": {
+        "Absence of mechanical operation components": {
+          "precision": 0.9191919191919192,
+          "recall": 0.978494623655914,
+          "f1-score": 0.9479166666666666,
+          "support": 186.0
+        },
+        "Absence of sealing components": {
+          "precision": 0.7903225806451613,
+          "recall": 0.7903225806451613,
+          "f1-score": 0.7903225806451613,
+          "support": 62.0
+        },
+        "Contamination": {
+          "precision": 0.8888888888888888,
+          "recall": 0.42105263157894735,
+          "f1-score": 0.5714285714285714,
+          "support": 19.0
+        },
+        "Dent": {
+          "precision": 0.6415094339622641,
+          "recall": 0.6666666666666666,
+          "f1-score": 0.6538461538461539,
+          "support": 51.0
+        },
+        "Door closer adjustment defect": {
+          "precision": 0.8804347826086957,
+          "recall": 0.7864077669902912,
+          "f1-score": 0.8307692307692308,
+          "support": 103.0
+        },
+        "Frame gap": {
+          "precision": 0.79,
+          "recall": 0.9294117647058824,
+          "f1-score": 0.8540540540540541,
+          "support": 170.0
+        },
+        "Others": {
+          "precision": 0.4166666666666667,
+          "recall": 0.13157894736842105,
+          "f1-score": 0.2,
+          "support": 38.0
+        },
+        "Scratch": {
+          "precision": 0.6415094339622641,
+          "recall": 0.68,
+          "f1-score": 0.6601941747572816,
+          "support": 50.0
+        },
+        "accuracy": 0.8114874815905744,
+        "macro avg": {
+          "precision": 0.7460654632407325,
+          "recall": 0.6729918727014104,
+          "f1-score": 0.6885664290208899,
+          "support": 679.0
+        },
+        "weighted avg": {
+          "precision": 0.7989236445225384,
+          "recall": 0.8114874815905744,
+          "f1-score": 0.7965889917519597,
+          "support": 679.0
+        }
+      }
+    },
+    {
+      "C": 1.0,
+      "class_weight": "balanced",
+      "records": 679,
+      "macro_f1": 0.755352383281213,
+      "weighted_f1": 0.8247843132769433,
+      "per_class": {
+        "Absence of mechanical operation components": {
+          "precision": 0.9562841530054644,
+          "recall": 0.9408602150537635,
+          "f1-score": 0.948509485094851,
+          "support": 186.0
+        },
+        "Absence of sealing components": {
+          "precision": 0.726027397260274,
+          "recall": 0.8548387096774194,
+          "f1-score": 0.7851851851851852,
+          "support": 62.0
+        },
+        "Contamination": {
+          "precision": 0.7894736842105263,
+          "recall": 0.7894736842105263,
+          "f1-score": 0.7894736842105263,
+          "support": 19.0
+        },
+        "Dent": {
+          "precision": 0.6666666666666666,
+          "recall": 0.6274509803921569,
+          "f1-score": 0.6464646464646465,
+          "support": 51.0
+        },
+        "Door closer adjustment defect": {
+          "precision": 0.8585858585858586,
+          "recall": 0.8252427184466019,
+          "f1-score": 0.8415841584158416,
+          "support": 103.0
+        },
+        "Frame gap": {
+          "precision": 0.861271676300578,
+          "recall": 0.8764705882352941,
+          "f1-score": 0.8688046647230321,
+          "support": 170.0
+        },
+        "Others": {
+          "precision": 0.5161290322580645,
+          "recall": 0.42105263157894735,
+          "f1-score": 0.463768115942029,
+          "support": 38.0
+        },
+        "Scratch": {
+          "precision": 0.6792452830188679,
+          "recall": 0.72,
+          "f1-score": 0.6990291262135923,
+          "support": 50.0
+        },
+        "accuracy": 0.8262150220913107,
+        "macro avg": {
+          "precision": 0.7567104689132875,
+          "recall": 0.7569236909493386,
+          "f1-score": 0.755352383281213,
+          "support": 679.0
+        },
+        "weighted avg": {
+          "precision": 0.8251962398694328,
+          "recall": 0.8262150220913107,
+          "f1-score": 0.8247843132769433,
+          "support": 679.0
+        }
+      }
+    },
+    {
+      "C": 3.0,
+      "class_weight": null,
+      "records": 679,
+      "macro_f1": 0.7340311016577705,
+      "weighted_f1": 0.8160618474211461,
+      "per_class": {
+        "Absence of mechanical operation components": {
+          "precision": 0.9187817258883249,
+          "recall": 0.9731182795698925,
+          "f1-score": 0.9451697127937336,
+          "support": 186.0
+        },
+        "Absence of sealing components": {
+          "precision": 0.8125,
+          "recall": 0.8387096774193549,
+          "f1-score": 0.8253968253968254,
+          "support": 62.0
+        },
+        "Contamination": {
+          "precision": 0.9166666666666666,
+          "recall": 0.5789473684210527,
+          "f1-score": 0.7096774193548387,
+          "support": 19.0
+        },
+        "Dent": {
+          "precision": 0.6666666666666666,
+          "recall": 0.6666666666666666,
+          "f1-score": 0.6666666666666666,
+          "support": 51.0
+        },
+        "Door closer adjustment defect": {
+          "precision": 0.8804347826086957,
+          "recall": 0.7864077669902912,
+          "f1-score": 0.8307692307692308,
+          "support": 103.0
+        },
+        "Frame gap": {
+          "precision": 0.8167539267015707,
+          "recall": 0.9176470588235294,
+          "f1-score": 0.8642659279778393,
+          "support": 170.0
+        },
+        "Others": {
+          "precision": 0.5882352941176471,
+          "recall": 0.2631578947368421,
+          "f1-score": 0.36363636363636365,
+          "support": 38.0
+        },
+        "Scratch": {
+          "precision": 0.6363636363636364,
+          "recall": 0.7,
+          "f1-score": 0.6666666666666666,
+          "support": 50.0
+        },
+        "accuracy": 0.8247422680412371,
+        "macro avg": {
+          "precision": 0.779550337376651,
+          "recall": 0.7155818390784536,
+          "f1-score": 0.7340311016577705,
+          "support": 679.0
+        },
+        "weighted avg": {
+          "precision": 0.8194243605662889,
+          "recall": 0.8247422680412371,
+          "f1-score": 0.8160618474211461,
+          "support": 679.0
+        }
+      }
+    },
+    {
+      "C": 3.0,
+      "class_weight": "balanced",
+      "records": 679,
+      "macro_f1": 0.761532028295236,
+      "weighted_f1": 0.8307079711104425,
+      "per_class": {
+        "Absence of mechanical operation components": {
+          "precision": 0.956989247311828,
+          "recall": 0.956989247311828,
+          "f1-score": 0.956989247311828,
+          "support": 186.0
+        },
+        "Absence of sealing components": {
+          "precision": 0.7605633802816901,
+          "recall": 0.8709677419354839,
+          "f1-score": 0.8120300751879699,
+          "support": 62.0
+        },
+        "Contamination": {
+          "precision": 0.8125,
+          "recall": 0.6842105263157895,
+          "f1-score": 0.7428571428571429,
+          "support": 19.0
+        },
+        "Dent": {
+          "precision": 0.6666666666666666,
+          "recall": 0.6274509803921569,
+          "f1-score": 0.6464646464646465,
+          "support": 51.0
+        },
+        "Door closer adjustment defect": {
+          "precision": 0.84,
+          "recall": 0.8155339805825242,
+          "f1-score": 0.8275862068965517,
+          "support": 103.0
+        },
+        "Frame gap": {
+          "precision": 0.8531073446327684,
+          "recall": 0.888235294117647,
+          "f1-score": 0.8703170028818443,
+          "support": 170.0
+        },
+        "Others": {
+          "precision": 0.6538461538461539,
+          "recall": 0.4473684210526316,
+          "f1-score": 0.53125,
+          "support": 38.0
+        },
+        "Scratch": {
+          "precision": 0.6727272727272727,
+          "recall": 0.74,
+          "f1-score": 0.7047619047619048,
+          "support": 50.0
+        },
+        "accuracy": 0.833578792341679,
+        "macro avg": {
+          "precision": 0.7770500081832974,
+          "recall": 0.7538445239635077,
+          "f1-score": 0.761532028295236,
+          "support": 679.0
+        },
+        "weighted avg": {
+          "precision": 0.8315510981554534,
+          "recall": 0.833578792341679,
+          "f1-score": 0.8307079711104425,
+          "support": 679.0
+        }
+      }
+    }
+  ],
+  "test": {
+    "records": 682,
+    "macro_f1": 0.7832985268870238,
+    "weighted_f1": 0.8567548738231112,
+    "per_class": {
+      "Absence of mechanical operation components": {
+        "precision": 0.9701492537313433,
+        "recall": 0.9653465346534653,
+        "f1-score": 0.967741935483871,
+        "support": 202.0
+      },
+      "Absence of sealing components": {
+        "precision": 0.8676470588235294,
+        "recall": 0.9516129032258065,
+        "f1-score": 0.9076923076923077,
+        "support": 62.0
+      },
+      "Contamination": {
+        "precision": 0.7647058823529411,
+        "recall": 0.6842105263157895,
+        "f1-score": 0.7222222222222222,
+        "support": 19.0
+      },
+      "Dent": {
+        "precision": 0.6779661016949152,
+        "recall": 0.8333333333333334,
+        "f1-score": 0.7476635514018691,
+        "support": 48.0
+      },
+      "Door closer adjustment defect": {
+        "precision": 0.87,
+        "recall": 0.8529411764705882,
+        "f1-score": 0.8613861386138614,
+        "support": 102.0
+      },
+      "Frame gap": {
+        "precision": 0.8579881656804734,
+        "recall": 0.8841463414634146,
+        "f1-score": 0.8708708708708709,
+        "support": 164.0
+      },
+      "Others": {
+        "precision": 0.5172413793103449,
+        "recall": 0.4166666666666667,
+        "f1-score": 0.46153846153846156,
+        "support": 36.0
+      },
+      "Scratch": {
+        "precision": 0.8205128205128205,
+        "recall": 0.6530612244897959,
+        "f1-score": 0.7272727272727273,
+        "support": 49.0
+      },
+      "accuracy": 0.8592375366568915,
+      "macro avg": {
+        "precision": 0.793276332763296,
+        "recall": 0.7801648383273575,
+        "f1-score": 0.7832985268870238,
+        "support": 682.0
+      },
+      "weighted avg": {
+        "precision": 0.8579353791477276,
+        "recall": 0.8592375366568915,
+        "f1-score": 0.8567548738231112,
+        "support": 682.0
+      }
+    }
+  },
+  "test_predictions": [
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:2",
+      "actual": "Dent",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:4",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:5",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:6",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:7",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:8",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:9",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:10",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:11",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:12",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:13",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:14",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:15",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:16",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:17",
+      "actual": "Others",
+      "predicted": "Contamination"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:18",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:19",
+      "actual": "Others",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:20",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:21",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:22",
+      "actual": "Others",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:23",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:26",
+      "actual": "Others",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:29",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:30",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:31",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:32",
+      "actual": "Frame gap",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:33",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:34",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:35",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:36",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:37",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:38",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:39",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:41",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:42",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:43",
+      "actual": "Frame gap",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:44",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:47",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:49",
+      "actual": "Scratch",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:50",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:54",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:55",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:56",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:57",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:58",
+      "actual": "Others",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:59",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:60",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:62",
+      "actual": "Others",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:63",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:64",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:65",
+      "actual": "Others",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:66",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:67",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:68",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:69",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:70",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:71",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:72",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:73",
+      "actual": "Contamination",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:74",
+      "actual": "Others",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:75",
+      "actual": "Absence of sealing components",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:77",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:78",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:79",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:80",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:81",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:83",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:85",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:86",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:87",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:88",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:90",
+      "actual": "Frame gap",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:91",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:92",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:93",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:94",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:95",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:96",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:97",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:98",
+      "actual": "Contamination",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:99",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:100",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:103",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:105",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:106",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:107",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:108",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:110",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:111",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:112",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:113",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:115",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:116",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:117",
+      "actual": "Others",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:119",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:120",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:124",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:125",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:126",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:128",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:129",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:130",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:131",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:132",
+      "actual": "Others",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:133",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:134",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:135",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:137",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:138",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:141",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:142",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:143",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:144",
+      "actual": "Others",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:146",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:147",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:148",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:149",
+      "actual": "Scratch",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:150",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:151",
+      "actual": "Others",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:152",
+      "actual": "Scratch",
+      "predicted": "Contamination"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:153",
+      "actual": "Dent",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:154",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:155",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:156",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:157",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:159",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:160",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:161",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:162",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:163",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:165",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:166",
+      "actual": "Scratch",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:167",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:168",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:170",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:172",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:173",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:175",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:176",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:177",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:178",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:179",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:181",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:182",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:183",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:184",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:185",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:187",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:189",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:190",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:191",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:192",
+      "actual": "Scratch",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:193",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:194",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:196",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:197",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:199",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:200",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:201",
+      "actual": "Others",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:202",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:203",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:204",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:206",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:207",
+      "actual": "Frame gap",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:208",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:210",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:212",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:213",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:214",
+      "actual": "Frame gap",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:215",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:217",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:218",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:219",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:221",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:222",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:224",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:225",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:226",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:227",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:228",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:229",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:230",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:231",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:232",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:233",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:234",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:236",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:237",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:238",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:239",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:240",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:241",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:242",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:243",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:244",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:245",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:246",
+      "actual": "Others",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:247",
+      "actual": "Contamination",
+      "predicted": "Contamination"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:248",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:249",
+      "actual": "Contamination",
+      "predicted": "Contamination"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:250",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:251",
+      "actual": "Scratch",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:252",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:253",
+      "actual": "Frame gap",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:254",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:255",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:256",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:258",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:261",
+      "actual": "Scratch",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:262",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:263",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:264",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:265",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:266",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:267",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:268",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:269",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:270",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:272",
+      "actual": "Others",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:273",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:274",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:275",
+      "actual": "Others",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:276",
+      "actual": "Others",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:277",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:279",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:280",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:281",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:282",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:283",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:284",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:285",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:289",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:290",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:292",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:293",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:295",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:296",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:297",
+      "actual": "Contamination",
+      "predicted": "Contamination"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:298",
+      "actual": "Others",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:299",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:300",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:301",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:302",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:303",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:304",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:305",
+      "actual": "Scratch",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:306",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:307",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:308",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:310",
+      "actual": "Others",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:311",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:312",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:313",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:315",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:316",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:319",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:320",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:321",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:323",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:324",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:325",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:326",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:328",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:330",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:331",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:333",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:334",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:335",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:336",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:337",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:339",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:340",
+      "actual": "Dent",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:341",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:343",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:344",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:345",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:347",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:348",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:349",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:352",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:353",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:354",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:356",
+      "actual": "Others",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:357",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:358",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:359",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:361",
+      "actual": "Frame gap",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:362",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:364",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:365",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:366",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:367",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:369",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:370",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:371",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:372",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:373",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:374",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:375",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:379",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:380",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:382",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:383",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:384",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:385",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:386",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:387",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:388",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:390",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:392",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:393",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:394",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:396",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:397",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:398",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:399",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:400",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:401",
+      "actual": "Scratch",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:402",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:403",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:404",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:405",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:406",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:407",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:408",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:409",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:410",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:411",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:412",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:413",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:414",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:416",
+      "actual": "Scratch",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:417",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:418",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:420",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:421",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:422",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:423",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:424",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:425",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:426",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:427",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:428",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:429",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:430",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:431",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:432",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:433",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:435",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:436",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:437",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:438",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:439",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:440",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:441",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:442",
+      "actual": "Contamination",
+      "predicted": "Contamination"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:443",
+      "actual": "Frame gap",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:444",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:445",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:446",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:447",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:448",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:449",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Contamination"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:450",
+      "actual": "Absence of sealing components",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:451",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:452",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:454",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:455",
+      "actual": "Contamination",
+      "predicted": "Contamination"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:456",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:457",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:458",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:459",
+      "actual": "Frame gap",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:461",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:462",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:464",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:465",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:466",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:468",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:469",
+      "actual": "Others",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:470",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:471",
+      "actual": "Contamination",
+      "predicted": "Contamination"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:473",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:474",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:475",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:476",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:477",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:478",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:480",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:481",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:483",
+      "actual": "Others",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:484",
+      "actual": "Others",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:485",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:486",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:487",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:489",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:490",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:491",
+      "actual": "Frame gap",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:493",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:494",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:495",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:497",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:498",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:499",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:500",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:501",
+      "actual": "Contamination",
+      "predicted": "Contamination"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:502",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:503",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:504",
+      "actual": "Frame gap",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:506",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:507",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:508",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:510",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:511",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:512",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:513",
+      "actual": "Contamination",
+      "predicted": "Contamination"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:514",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:515",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:516",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:517",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:518",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:519",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:520",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:522",
+      "actual": "Contamination",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:523",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:524",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:525",
+      "actual": "Contamination",
+      "predicted": "Contamination"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:526",
+      "actual": "Frame gap",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:527",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:528",
+      "actual": "Contamination",
+      "predicted": "Contamination"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:530",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:531",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:532",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:533",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:534",
+      "actual": "Others",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:535",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:537",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:538",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:539",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:540",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:541",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:542",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:543",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:545",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:546",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:547",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:548",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:549",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:552",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:553",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:554",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:555",
+      "actual": "Frame gap",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:556",
+      "actual": "Dent",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:557",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:558",
+      "actual": "Contamination",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:559",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:560",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:561",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:563",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:564",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:566",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:567",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:568",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:569",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:570",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:571",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:572",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:573",
+      "actual": "Others",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:576",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:577",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:578",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:580",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:581",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:582",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:583",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:584",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:585",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:586",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:587",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:588",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:589",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:590",
+      "actual": "Scratch",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:591",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:592",
+      "actual": "Others",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:594",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:595",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:596",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:597",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:598",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:600",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:601",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:602",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:603",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:604",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:607",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:608",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:609",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:611",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:612",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:613",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:614",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:615",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:616",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:617",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:620",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:621",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:622",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:623",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:624",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:625",
+      "actual": "Others",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:627",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:628",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:629",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:630",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:631",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:632",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:633",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:634",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:635",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:636",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:637",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:638",
+      "actual": "Frame gap",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:640",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:641",
+      "actual": "Frame gap",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:642",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:643",
+      "actual": "Scratch",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:644",
+      "actual": "Scratch",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:645",
+      "actual": "Dent",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:646",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:647",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:649",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:650",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:652",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:654",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:656",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:657",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:658",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:660",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:661",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:662",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:664",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:665",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:666",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:667",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:669",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:670",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:671",
+      "actual": "Frame gap",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:673",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:674",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:676",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:677",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:678",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:680",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:682",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:683",
+      "actual": "Contamination",
+      "predicted": "Contamination"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:684",
+      "actual": "Scratch",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:685",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:686",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:687",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:688",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:689",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:690",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:691",
+      "actual": "Contamination",
+      "predicted": "Contamination"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:692",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:693",
+      "actual": "Dent",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:697",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:698",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:699",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:700",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:702",
+      "actual": "Others",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:703",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:705",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:706",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:707",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:708",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:709",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:710",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:711",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:712",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:713",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:714",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:715",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:716",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:717",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:718",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:720",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:721",
+      "actual": "Frame gap",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:723",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:725",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:726",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:727",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:729",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:732",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:733",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:734",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:737",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:738",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:739",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:741",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:742",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:743",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:745",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:746",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:748",
+      "actual": "Dent",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:749",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:750",
+      "actual": "Frame gap",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:751",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:753",
+      "actual": "Dent",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:754",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:755",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:756",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:757",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:758",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:760",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:761",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:763",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:766",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:767",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:768",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:770",
+      "actual": "Scratch",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:771",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:772",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:773",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:774",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:775",
+      "actual": "Scratch",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:776",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:777",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:780",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:781",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:782",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:783",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:785",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:786",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:787",
+      "actual": "Scratch",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:788",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:789",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:790",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:791",
+      "actual": "Others",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:792",
+      "actual": "Frame gap",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:793",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:794",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:795",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:797",
+      "actual": "Dent",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:798",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:799",
+      "actual": "Others",
+      "predicted": "Dent"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:800",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:801",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:804",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:805",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:806",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:808",
+      "actual": "Others",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:809",
+      "actual": "Contamination",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:810",
+      "actual": "Others",
+      "predicted": "Contamination"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:811",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:812",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:813",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:814",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:815",
+      "actual": "Others",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:816",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:817",
+      "actual": "Others",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:818",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:819",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:820",
+      "actual": "Contamination",
+      "predicted": "Others"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:823",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:824",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:825",
+      "actual": "Contamination",
+      "predicted": "Contamination"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:826",
+      "actual": "Scratch",
+      "predicted": "Scratch"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:827",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:828",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:829",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:830",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:831",
+      "actual": "Others",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:833",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:834",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:836",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:837",
+      "actual": "Frame gap",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:838",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Door closer adjustment defect"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:839",
+      "actual": "Absence of mechanical operation components",
+      "predicted": "Absence of mechanical operation components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:840",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:841",
+      "actual": "Door closer adjustment defect",
+      "predicted": "Frame gap"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:842",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:843",
+      "actual": "Absence of sealing components",
+      "predicted": "Absence of sealing components"
+    },
+    {
+      "record_id": "fire_door:f8e18b1c0343cbe5:844",
+      "actual": "Others",
+      "predicted": "Others"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+version: construction-v1
+entities:
+  COMPONENT: [fire door, door closer, door frame, hinge, hinges, smoke seal, intumescent seal, latch]
+  DEFECT: [frame gap, closer adjustment defect]
