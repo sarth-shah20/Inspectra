@@ -1,0 +1,245 @@
+{
+  "artifact": "AI-generated silver annotations; not human-reviewed, privacy-approved, adjudicated, or gold.",
+  "records_per_domain_and_split": {
+    "train": {
+      "construction": 67,
+      "aviation": 67,
+      "pipeline": 66
+    },
+    "validation": {
+      "construction": 17,
+      "aviation": 17,
+      "pipeline": 16
+    },
+    "test": {
+      "construction": 25,
+      "aviation": 25,
+      "pipeline": 25
+    }
+  },
+  "entities_per_label": {
+    "COMPONENT": 320,
+    "DEFECT": 327,
+    "MATERIAL": 93,
+    "CORRECTIVE_ACTION": 106,
+    "MEASUREMENT": 34,
+    "REPORTED_SEVERITY": 5,
+    "INSPECTION_METHOD": 6,
+    "CAUSE": 9,
+    "DATE": 3
+  },
+  "excluded_privacy_risk_records": [
+    {
+      "record_id": "faa_sdr:6d1ba6f2d98e4289:68679",
+      "domain": "aviation",
+      "source_label": "malfunctioned",
+      "group_id": "faa_sdr:6d1ba6f2d98e4289:68679",
+      "split": "train",
+      "rank": "00117c81e1f3a4e0c0f74777e839c53a8bccb7c8ee71ef9e409fd2fb247f4066",
+      "privacy_risks": [
+        "registration_number"
+      ]
+    },
+    {
+      "record_id": "faa_sdr:712b890b607f5abb:61035",
+      "domain": "aviation",
+      "source_label": "damaged",
+      "group_id": "faa_sdr:712b890b607f5abb:61035",
+      "split": "train",
+      "rank": "000a449df3c5df12bce2df79932ae061c9fbfca698511b06fa4163d47f4f6bef",
+      "privacy_risks": [
+        "registration_number"
+      ]
+    },
+    {
+      "record_id": "faa_sdr:80a2d209092d8aab:46696",
+      "domain": "aviation",
+      "source_label": "faulted",
+      "group_id": "faa_sdr:80a2d209092d8aab:46696",
+      "split": "validation",
+      "rank": "0047d4e79dfa1de66884995631684d5eec6c5f858f4e0071389e8b465595d805",
+      "privacy_risks": [
+        "registration_number"
+      ]
+    },
+    {
+      "record_id": "faa_sdr:80a2d209092d8aab:55290",
+      "domain": "aviation",
+      "source_label": "corroded",
+      "group_id": "faa_sdr:80a2d209092d8aab:55290",
+      "split": "validation",
+      "rank": "0004e843fee251f3ad9ca3d10b523f7d5244c08cff20b3cc877027295bf7ca44",
+      "privacy_risks": [
+        "registration_number"
+      ]
+    },
+    {
+      "record_id": "faa_sdr:6517c3970d5ebba2:15394",
+      "domain": "aviation",
+      "source_label": "broken",
+      "group_id": "faa_sdr:6517c3970d5ebba2:15394",
+      "split": "test",
+      "rank": "00581a39b3a17a4e35258f5e70d9c7ebc997e3dbd765f01d97477eb2c7cca0ac",
+      "privacy_risks": [
+        "registration_number"
+      ]
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:578",
+      "domain": "pipeline",
+      "source_label": "other accident cause",
+      "group_id": "phmsa:7ba12d907f78e1d6:578",
+      "split": "train",
+      "rank": "0925a5fe46b16b89d3a70c90725110d6e56ea926a86f1c0e82d50462a5bb6216",
+      "privacy_risks": [
+        "registration_number"
+      ]
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3171",
+      "domain": "pipeline",
+      "source_label": "natural force damage",
+      "group_id": "phmsa:7ba12d907f78e1d6:3171",
+      "split": "train",
+      "rank": "0446ab75f68cfe03e1960e5881823ae3aa4983db8ef4563965367316ff92a70e",
+      "privacy_risks": [
+        "registration_number"
+      ]
+    },
+    {
+      "record_id": "phmsa:7ba12d907f78e1d6:3915",
+      "domain": "pipeline",
+      "source_label": "natural force damage",
+      "group_id": "phmsa:7ba12d907f78e1d6:3915",
+      "split": "train",
+      "rank": "005c12deed78d782b1cadbe79df94619c539305a30af2b66b831e60b96ee7bae",
+      "privacy_risks": [
+        "personal_name"
+      ]
+    },
+    {
+      "record_id": "phmsa:65d09518baf8280b:237",
+      "domain": "pipeline",
+      "source_label": "other outside force damage",
+      "group_id": "phmsa:65d09518baf8280b:237",
+      "split": "train",
+      "rank": "04256134256e8abcbc25d56fa1b2126cd2874a042e71e2def221d5fac1551a39",
+      "privacy_risks": [
+        "personal_name"
+      ]
+    },
+    {
+      "record_id": "phmsa:65d09518baf8280b:1157",
+      "domain": "pipeline",
+      "source_label": "natural force damage",
+      "group_id": "phmsa:65d09518baf8280b:1157",
+      "split": "test",
+      "rank": "03f4c143e51e35da2a22179b53a82d64bed568519b7658b0fa0bcacf0c8cb9d1",
+      "privacy_risks": [
+        "personal_name"
+      ]
+    },
+    {
+      "record_id": "phmsa:65d09518baf8280b:1368",
+      "domain": "pipeline",
+      "source_label": "excavation damage",
+      "group_id": "phmsa:65d09518baf8280b:1368",
+      "split": "validation",
+      "rank": "010592664bfb5bbe6cec67e2ed7aaec7e8bd3a415d04852c442f15db57d88424",
+      "privacy_risks": [
+        "personal_name"
+      ]
+    },
+    {
+      "record_id": "phmsa:a7791365298c31a3:126",
+      "domain": "pipeline",
+      "source_label": "9",
+      "group_id": "phmsa:a7791365298c31a3:126",
+      "split": "test",
+      "rank": "1b61663d66527f2ae3685d8d926279fe94ff95ffde0da67743f38458f0946432",
+      "privacy_risks": [
+        "personal_name"
+      ]
+    },
+    {
+      "record_id": "phmsa:7bbdd8d73255b897:1079",
+      "domain": "pipeline",
+      "source_label": "equipment failure",
+      "group_id": "phmsa:65d09518baf8280b:749",
+      "split": "train",
+      "rank": "00277f9406be6458ce2817215793cc6f58faa91546f09a2c8aef901f03527c85",
+      "privacy_risks": [
+        "registration_number"
+      ]
+    },
+    {
+      "record_id": "phmsa:7bbdd8d73255b897:1199",
+      "domain": "pipeline",
+      "source_label": "equipment failure",
+      "group_id": "phmsa:65d09518baf8280b:818",
+      "split": "train",
+      "rank": "002de41f15e64eff84770fe2b811c5ca811adb0077935e29bc3072daac46ba26",
+      "privacy_risks": [
+        "personal_name"
+      ]
+    },
+    {
+      "record_id": "phmsa:7bbdd8d73255b897:1316",
+      "domain": "pipeline",
+      "source_label": "excavation damage",
+      "group_id": "phmsa:7ba12d907f78e1d6:3984",
+      "split": "train",
+      "rank": "02bf1914b6a28d556662fec23edcfc3a129d76013d0607705562e3e533338060",
+      "privacy_risks": [
+        "registration_number"
+      ]
+    }
+  ],
+  "records_with_no_entities": [
+    "fire_door:5d9a33822c39c271:676",
+    "fire_door:5d9a33822c39c271:1820",
+    "fire_door:5d9a33822c39c271:2112",
+    "fire_door:5d9a33822c39c271:1662",
+    "fire_door:5d9a33822c39c271:1725",
+    "fire_door:5d9a33822c39c271:669",
+    "fire_door:5d9a33822c39c271:2096",
+    "fire_door:5d9a33822c39c271:1274",
+    "fire_door:5d9a33822c39c271:1962",
+    "faa_sdr:55087cacb661354a:33796",
+    "faa_sdr:712b890b607f5abb:3225",
+    "faa_sdr:40af907f01e1d9cc:52861",
+    "faa_sdr:68c1819582debe86:16460",
+    "faa_sdr:abdb7110b548d2a3:13571",
+    "faa_sdr:6d1ba6f2d98e4289:23360",
+    "faa_sdr:712b890b607f5abb:18055",
+    "faa_sdr:68c1819582debe86:35201",
+    "phmsa:a7791365298c31a3:692",
+    "phmsa:a7791365298c31a3:333",
+    "phmsa:a7791365298c31a3:334",
+    "phmsa:a7791365298c31a3:17",
+    "phmsa:a7791365298c31a3:714",
+    "phmsa:a7791365298c31a3:214",
+    "phmsa:65d09518baf8280b:482",
+    "fire_door:5f83aec1fdbfd0a3:86",
+    "fire_door:5f83aec1fdbfd0a3:305",
+    "faa_sdr:80a2d209092d8aab:24919",
+    "faa_sdr:80a2d209092d8aab:35578",
+    "faa_sdr:80a2d209092d8aab:41396",
+    "phmsa:a7791365298c31a3:488",
+    "phmsa:a7791365298c31a3:240",
+    "fire_door:f8e18b1c0343cbe5:669",
+    "faa_sdr:6517c3970d5ebba2:49296",
+    "faa_sdr:6517c3970d5ebba2:5203",
+    "faa_sdr:6517c3970d5ebba2:54809",
+    "faa_sdr:6517c3970d5ebba2:32863",
+    "phmsa:a7791365298c31a3:704",
+    "phmsa:a7791365298c31a3:97",
+    "phmsa:a7791365298c31a3:517",
+    "phmsa:fc7f499adee3b823:71",
+    "faa_sdr:6d1ba6f2d98e4289:68861",
+    "phmsa:7ba12d907f78e1d6:3917"
+  ],
+  "validation_errors": [],
+  "uncertain_annotations_requiring_review": 325,
+  "total_records": 325
+}

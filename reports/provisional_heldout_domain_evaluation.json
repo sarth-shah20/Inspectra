@@ -1,0 +1,54 @@
+{
+  "scope": "Provisional evaluation against AI-assisted labels only; not human-validated generalization performance.",
+  "experiments": {
+    "construction": {
+      "records": 25,
+      "compatible_labels": [
+        "COMPONENT",
+        "DEFECT",
+        "MATERIAL"
+      ],
+      "predicted_entities": 4,
+      "reference_entities": 39,
+      "exact_precision": 0.75,
+      "exact_recall": 0.07692307692307693,
+      "exact_f1": 0.13953488372093026,
+      "train_records": 133,
+      "heldout_domain": "construction"
+    },
+    "aviation": {
+      "records": 25,
+      "compatible_labels": [
+        "COMPONENT",
+        "CORRECTIVE_ACTION",
+        "DATE",
+        "DEFECT",
+        "MEASUREMENT"
+      ],
+      "predicted_entities": 37,
+      "reference_entities": 36,
+      "exact_precision": 0.8378378378378378,
+      "exact_recall": 0.8611111111111112,
+      "exact_f1": 0.8493150684931507,
+      "train_records": 133,
+      "heldout_domain": "aviation"
+    },
+    "pipeline": {
+      "records": 25,
+      "compatible_labels": [
+        "COMPONENT",
+        "CORRECTIVE_ACTION",
+        "DEFECT",
+        "MATERIAL",
+        "MEASUREMENT"
+      ],
+      "predicted_entities": 59,
+      "reference_entities": 112,
+      "exact_precision": 0.847457627118644,
+      "exact_recall": 0.44642857142857145,
+      "exact_f1": 0.584795321637427,
+      "train_records": 134,
+      "heldout_domain": "pipeline"
+    }
+  }
+}

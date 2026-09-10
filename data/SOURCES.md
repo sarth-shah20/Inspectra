@@ -55,3 +55,40 @@ empty-text exclusions, grouping statistics, and split/sample coverage. Redaction
 measure pattern matches, not the sensitivity or recall of a privacy detector. All derived
 narratives and assignment tables remain local and ignored by Git. Redistribution terms
 and human privacy review remain unresolved.
+
+## Verification update — 2026-09-10
+
+- **FAA SDR:** The FAA’s official download page lists annual SDR CSVs and describes them as
+  reports submitted by operators and repair stations concerning aircraft malfunctions, failures,
+  and defects. It includes the local reporting years and was checked on 2026-09-10.
+  FAA’s published SDR submission instructions define `OperatorControlNumber`,
+  `DifficultyDate`, `RegistryNNumber`, and `SubmitterTypeCode`; the local `PartCondition`,
+  `PartName`, and `ComponentName` fields are preserved as source fields and excluded from the
+  narrative model input. FAA’s published Internet-use policy says information on its public
+  website is public information that may be copied or distributed. Attribute the FAA and retain
+  source URLs and access dates; do not infer a separate open-data licence or redistribute
+  narratives without completing privacy review.
+- **PHMSA:** PHMSA’s official incident-data page says each report ZIP contains a data file and
+  a field/column-description file. Its failure-cause guidance names the top-level cause families
+  represented in this project, including corrosion, excavation damage, natural-force damage,
+  other outside-force damage, material/weld failure, equipment failure, and incorrect operation.
+  The report index says operator-submitted data are publicly available. Attribute PHMSA and
+  retain source URLs and access dates; do not infer a Creative Commons licence or redistribute
+  narratives without completing privacy review.
+- **Fire door:** The local dataset refers to Figshare article `27281139`, but the item metadata
+  and item-specific reuse licence could not be retrieved reliably on 2026-09-10. Its licence,
+  citation, version correspondence, and redistribution permission remain **unverified**. Keep
+  this raw and derived narrative data local until the article owner’s item-specific licence is
+  recorded.
+
+Official references checked on 2026-09-10:
+
+- FAA SDR downloads: https://www.faa.gov/av-info/download_SDR
+- FAA SDR submission instructions: https://sdrs.faa.gov/Documents/Instructions%20for%20Single%20Submission.pdf
+- FAA public-information policy: https://www.faa.gov/documentlibrary/media/order/faa_order_1370.79a.pdf
+- PHMSA incident data and field-description files: https://www.phmsa.dot.gov/data-and-statistics/pipeline/distribution-transmission-gathering-lng-and-liquid-accident-and-incident-data
+- PHMSA report index: https://www.phmsa.dot.gov/data-and-statistics/pipeline/pipeline-safety-data-report-index
+- PHMSA failure causes: https://www.phmsa.dot.gov/incident-reporting/accident-investigation-division/pipeline-failure-causes
+
+This completes official-source and code-family verification for the included FAA and PHMSA
+fields. It does not resolve the fire-door item licence or certify any narrative for sharing.

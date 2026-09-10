@@ -10,6 +10,7 @@ from inspection_nlp.classification import predict
 from inspection_nlp.documents import parse_document
 from inspection_nlp.export import export_csv, export_json, highlight
 from inspection_nlp.extraction import extract
+from inspection_nlp.hybrid import extract_hybrid
 from inspection_nlp.reviews import append_review, review_payload
 
 st.set_page_config(page_title="Inspectra", layout="wide")
@@ -24,6 +25,15 @@ st.caption("Auto/General uses shared vocabulary. Choose a domain to add its conf
 def load_fire_door_model():
     return joblib.load("models/fire-door-tfidf-v1/model.joblib")
 
+
+silver_model_path = Path("models/silver-ner-v1")
+use_silver_ner = st.checkbox(
+    "Add provisional silver NER spans",
+    disabled=not silver_model_path.exists(),
+    help="Uses an AI-silver-label model. It is not human-validated and all spans require review.",
+)
+if not silver_model_path.exists():
+    st.caption("Optional silver NER model is not present locally; rules extraction remains available.")
 
 upload = st.file_uploader("Upload a report", type=["pdf", "docx", "csv", "xlsx", "tsv", "txt"])
 text_column = st.text_input("Narrative column for tabular files", value="")
@@ -42,15 +52,14 @@ if upload is not None or text.strip():
             tabular_txt=tabular_txt,
             encoding=encoding if upload else "utf-8-sig",
         )
-        st.write(f"{len(records)} narrative record(s)")
         st.text(records[0].display_text)
-        # Invalidate results before extraction when text, parser options, or domain change.
         signature = (
-            tuple((r.record_id, r.clean_text) for r in records),
+            tuple((record.record_id, record.clean_text) for record in records),
             domain,
             text_column,
             tabular_txt,
             encoding,
+            use_silver_ner,
         )
         if st.session_state.get("input_signature") != signature:
             st.session_state.pop("results", None)
@@ -58,7 +67,10 @@ if upload is not None or text.strip():
             st.session_state["input_signature"] = signature
         if st.button("Extract evidence"):
             with st.spinner("Extracting evidence…"):
-                results = [extract(record) for record in records]
+                results = [
+                    extract_hybrid(record, silver_model_path) if use_silver_ner else extract(record)
+                    for record in records
+                ]
             st.session_state["results"] = results
     except (ValueError, UnicodeError, RuntimeError, BadZipFile, KeyError) as exc:
         st.session_state.pop("results", None)
@@ -122,6 +134,12 @@ if results:
     else:
         st.info("No extracted entities to summarize.")
     st.subheader("Saved model evaluations")
+    silver_report_path = Path("reports/silver_ner_evaluation.json")
+    if silver_report_path.exists():
+        silver_report = json.loads(silver_report_path.read_text())
+        with st.expander("Provisional silver NER"):
+            st.write(f"Silver-label test exact F1: {silver_report['test']['exact_f1']:.4f}")
+            st.caption(silver_report["metric_scope"])
     for path in [
         Path("reports/fire_door_baseline.json"),
         Path("reports/faa-part-condition_baseline.json"),
