@@ -55,3 +55,21 @@ def append_review(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a") as target:
         target.write(json.dumps(payload, ensure_ascii=False) + "\n")
+
+
+def review_history(path: Path) -> list[dict]:
+    """Read append-only review history; malformed lines are rejected rather than hidden."""
+    if not path.exists():
+        return []
+    history = []
+    with path.open() as source:
+        for line_number, line in enumerate(source, 1):
+            try:
+                row = json.loads(line)
+            except json.JSONDecodeError as exc:
+                raise ValueError(f"Invalid review JSON on line {line_number}") from exc
+            required = {"reviewed_at", "record_id", "domain", "corrected_entities", "note"}
+            if not required <= set(row):
+                raise ValueError(f"Incomplete review on line {line_number}")
+            history.append(row)
+    return sorted(history, key=lambda row: row["reviewed_at"], reverse=True)

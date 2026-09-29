@@ -1,0 +1,111 @@
+{
+  "scope": "All entity metrics are provisional: they use AI-assisted labels and are not human-validated performance.",
+  "evaluation_table": [
+    {
+      "experiment": "fire-door classification",
+      "scope": "source-specific",
+      "test_macro_f1": 0.7832985268870238,
+      "test_weighted_f1": 0.8567548738231112
+    },
+    {
+      "experiment": "FAA PartCondition classification",
+      "scope": "source-specific temporal 2025",
+      "test_macro_f1": 0.7540902214992788,
+      "test_weighted_f1": 0.8420029553861149
+    },
+    {
+      "experiment": "PHMSA cause classification",
+      "scope": "source-specific grouped",
+      "test_macro_f1": 0.6607479858351814,
+      "test_weighted_f1": 0.7887091446504675
+    },
+    {
+      "experiment": "NER",
+      "scope": "provisional AI-assisted labels",
+      "test_exact_f1": 0.9526315789473683
+    }
+  ],
+  "heldout_domain_provisional": {
+    "construction": {
+      "records": 25,
+      "compatible_labels": [
+        "COMPONENT",
+        "DEFECT",
+        "MATERIAL"
+      ],
+      "predicted_entities": 4,
+      "reference_entities": 39,
+      "exact_precision": 0.75,
+      "exact_recall": 0.07692307692307693,
+      "exact_f1": 0.13953488372093026,
+      "train_records": 133,
+      "heldout_domain": "construction"
+    },
+    "aviation": {
+      "records": 25,
+      "compatible_labels": [
+        "COMPONENT",
+        "CORRECTIVE_ACTION",
+        "DATE",
+        "DEFECT",
+        "MEASUREMENT"
+      ],
+      "predicted_entities": 37,
+      "reference_entities": 36,
+      "exact_precision": 0.8378378378378378,
+      "exact_recall": 0.8611111111111112,
+      "exact_f1": 0.8493150684931507,
+      "train_records": 133,
+      "heldout_domain": "aviation"
+    },
+    "pipeline": {
+      "records": 25,
+      "compatible_labels": [
+        "COMPONENT",
+        "CORRECTIVE_ACTION",
+        "DEFECT",
+        "MATERIAL",
+        "MEASUREMENT"
+      ],
+      "predicted_entities": 59,
+      "reference_entities": 112,
+      "exact_precision": 0.847457627118644,
+      "exact_recall": 0.44642857142857145,
+      "exact_f1": 0.584795321637427,
+      "train_records": 134,
+      "heldout_domain": "pipeline"
+    }
+  },
+  "hybrid_calibration_provisional": {
+    "scope": "Provisional calibration on AI-assisted validation labels only; not calibrated confidence for deployment.",
+    "selected_threshold": 0.75,
+    "validation_candidates": [
+      {
+        "threshold": 0.5,
+        "precision": 0.9453125,
+        "recall": 1.0,
+        "f1": 0.9718875502008032
+      },
+      {
+        "threshold": 0.75,
+        "precision": 0.9918032786885246,
+        "recall": 1.0,
+        "f1": 0.9958847736625513
+      },
+      {
+        "threshold": 0.95,
+        "precision": 0.6666666666666666,
+        "recall": 0.01652892561983471,
+        "f1": 0.03225806451612903
+      }
+    ],
+    "routing": "Below threshold: UNMAPPED when no retained entity; REVIEW_REQUIRED whenever an entity is retained."
+  },
+  "error_analysis": [
+    "Construction holdout recall is low because the compact training vocabulary does not cover many fire-door terms.",
+    "Pipeline holdout recall is lower than aviation, indicating source-specific vocabulary and narrative-style dependence.",
+    "The hybrid threshold retains deterministic evidence at 0.75; model-only spans require review because spaCy span confidence is not calibrated.",
+    "Source classification taxonomies are incompatible across domains and are not used as shared-entity scores.",
+    "No metric supports compliance, engineering-risk, or deployment claims."
+  ]
+}

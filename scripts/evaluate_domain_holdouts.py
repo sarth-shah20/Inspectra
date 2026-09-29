@@ -1,10 +1,15 @@
 """Provisional cross-domain NER evaluation on compatible AI-assisted entity labels."""
 from __future__ import annotations
-import argparse,json,random
+
+import argparse
+import json
+import random
 from pathlib import Path
+
 import spacy
 from spacy.training import Example
 from spacy.util import fix_random_seed
+
 
 def ex(nlp,row,labels=None):
     ents=[(e['evidence_start'],e['evidence_end'],e['label']) for e in row['entities'] if labels is None or e['label'] in labels]
@@ -25,7 +30,7 @@ def main():
   labels={e['label'] for r in train for e in r['entities']} & {e['label'] for r in test for e in r['entities']}
   fix_random_seed(17);random.seed(17);nlp=spacy.blank('en');ner=nlp.add_pipe('ner')
   for x in labels:ner.add_label(x)
-  examples=[ex(nlp,r,labels) for r in train]; opt=nlp.initialize(lambda:examples)
+  examples=[ex(nlp,r,labels) for r in train]; opt=nlp.initialize(lambda examples=examples:examples)
   for _ in range(12):
    random.shuffle(examples)
    for batch in spacy.util.minibatch(examples,size=8):nlp.update(batch,sgd=opt,drop=.25)

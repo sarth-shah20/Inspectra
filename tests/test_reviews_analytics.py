@@ -49,3 +49,13 @@ def test_analytics_summary():
         {"entity": "MEASUREMENT", "count": 1},
     ]
     assert review_summary([item])["entities"] == 3
+
+
+def test_review_history_is_append_ordered(tmp_path):
+    from inspection_nlp.reviews import review_history
+
+    item = record()
+    path = tmp_path / "reviews.jsonl"
+    append_review(path, review_payload(item, [entity.model_dump() for entity in item.entities], "First"))
+    history = review_history(path)
+    assert len(history) == 1 and history[0]["note"] == "First"

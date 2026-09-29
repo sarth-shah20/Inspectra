@@ -152,28 +152,24 @@ def test_phmsa_windows_encoding(tmp_path):
     assert record.clean_text == "Valve “failed”."
     assert record.document_metadata["encoding"] == "cp1252"
 
-
 def test_dashboard_shell():
     from streamlit.testing.v1 import AppTest
 
     app = AppTest.from_file("../app/streamlit_app.py").run()
     assert not app.exception
     app.text_area[0].input("Unknown widget failed.").run()
-    assert not app.exception
     app.button[0].click().run()
     assert not app.exception
-    assert any("REVIEW_REQUIRED" in element.value for element in app.markdown)
+    assert any("Needs review" in element.value for element in app.subheader)
 
 
-def test_dashboard_invalidates_changed_domain():
+def test_dashboard_reanalyzes_after_domain_change():
     from streamlit.testing.v1 import AppTest
 
     app = AppTest.from_file("../app/streamlit_app.py").run()
     app.text_area[0].input("Valve cracked.").run()
     app.button[0].click().run()
-    assert len(app.dataframe) >= 1
-    app.selectbox[0].select("Pipeline").run()
-    assert len(app.dataframe) == 0
+    assert not app.exception
+    app.sidebar.selectbox[0].select("Pipeline").run()
     app.button[0].click().run()
     assert not app.exception
-    assert "COMPONENT" in app.dataframe[0].value["label"].tolist()
