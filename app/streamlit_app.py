@@ -163,18 +163,54 @@ with analyze_tab:
             }
             for entity in record.entities
         ]
-        st.dataframe(finding_rows, hide_index=True, width="stretch")
-        chart_left, chart_right = st.columns(2)
-        all_entities = [entity for item in results for entity in item.entities]
-        with chart_left:
+        selected_entities = record.entities
+        active = sum(entity.assertion == "present" for entity in selected_entities)
+        contextual = len(selected_entities) - active
+        measurements = sum(entity.label == "MEASUREMENT" for entity in selected_entities)
+        insight_metrics = st.columns(4)
+        for column, label, value in zip(
+            insight_metrics,
+            ["Active findings", "Contextual findings", "Measurements", "Finding types"],
+            [active, contextual, measurements, len({entity.label for entity in selected_entities})],
+            strict=True,
+        ):
+            column.metric(label, value)
+        st.subheader("Finding insights")
+        overview_left, overview_right, overview_extra = st.columns(3)
+        with overview_left:
             donut(
-                [{"type": name.replace("_", " ").title(), "count": count} for name, count in Counter(e.label for e in all_entities).items()],
+                [{"type": name.replace("_", " ").title(), "count": count} for name, count in Counter(entity.label for entity in selected_entities).items()],
                 "type", "count", "Finding types",
             )
-        with chart_right:
+        with overview_right:
             donut(
-                [{"status": name.title(), "count": count} for name, count in Counter(e.assertion for e in all_entities).items()],
+                [{"status": name.title(), "count": count} for name, count in Counter(entity.assertion for entity in selected_entities).items()],
                 "status", "count", "Finding status",
+            )
+        with overview_extra:
+            donut(
+                [{"source": name.title(), "count": count} for name, count in Counter(entity.extraction_method for entity in selected_entities).items()],
+                "source", "count", "Evidence source",
+            )
+        chart_left, chart_right = st.columns(2)
+        by_type_status = [
+            {"type": entity.label.replace("_", " ").title(), "status": entity.assertion.title()}
+            for entity in selected_entities
+        ]
+        with chart_left:
+            st.vega_lite_chart(
+                by_type_status,
+                {"title": "Finding status by type", "mark": "bar", "encoding": {"x": {"aggregate": "count", "type": "quantitative", "title": "Findings"}, "y": {"field": "type", "type": "nominal", "sort": "-x", "title": None}, "color": {"field": "status", "type": "nominal"}, "tooltip": [{"field": "type"}, {"field": "status"}, {"aggregate": "count", "type": "quantitative", "title": "Findings"}]}},
+                width="stretch",
+            )
+        with chart_right:
+            confidence_bands = Counter(
+                "High (95%+)" if entity.confidence >= 0.95 else "Medium (75–94%)" if entity.confidence >= 0.75 else "Review (below 75%)"
+                for entity in selected_entities
+            )
+            bars(
+                [{"band": name, "count": count} for name, count in confidence_bands.items()],
+                "band", "count", "Evidence confidence bands", "#7C3AED",
             )
         st.download_button("Download findings (CSV)", export_csv(results), "inspectra_findings.csv", "text/csv")
         st.download_button("Download findings (JSON)", export_json(results), "inspectra_findings.json", "application/json")
@@ -196,56 +232,31 @@ with analyze_tab:
                     st.success("Correction saved to review history.")
                 except (KeyError, TypeError, ValueError) as exc:
                     st.error(f"We could not save this correction: {exc}")
-
         if domain == "construction":
             with st.expander("Fire-door finding category"):
                 if st.button("Classify document", key="fire_door_classify"):
                     try:
-                        st.session_state["fire_door_prediction"] = predict(load_fire_door_model(), record.clean_text)
+                        st.session_state["fire_door_prediction"] = predict(
+                            load_fire_door_model(), record.clean_text
+                        )
                     except FileNotFoundError:
                         st.warning("The local fire-door classifier is not available.")
                 prediction = st.session_state.get("fire_door_prediction")
                 if prediction:
-                    st.metric("Suggested category", prediction["label"], f"{prediction['score']:.0%} score")
+                    st.metric(
+                        "Suggested category",
+                        prediction["label"],
+                        f"{prediction['score']:.0%} score",
+                    )
                     st.caption("This score is not calibrated and should be reviewed.")
-
-with portfolio_tab:
-    st.subheader("Portfolio coverage")
-    analytics = source_analytics()
-    domains = analytics.get("domains", {})
-    coverage = [
-        {"domain": name.title(), "records": value["records"], "event groups": value["event_deduplicated_records"], "mean words": value["mean_words"]}
-        for name, value in domains.items()
-    ]
-    metrics = st.columns(3)
-    for column, row in zip(metrics, coverage, strict=False):
-        column.metric(row["domain"], f"{row['records']:,}", f"{row['event groups']:,} grouped events")
-    bars(coverage, "domain", "records", "Source records by domain")
-    if domains:
-        selected = st.selectbox("Explore a source", list(domains), format_func=str.title)
-        details = domains[selected]
-        labels = [{"label": label, "count": count} for label, count in details["source_label_counts"].items()]
-        left, right = st.columns(2)
-        with left:
-            bars(labels[:15], "label", "count", f"Most common {selected} categories")
-        with right:
-            donut(labels[:8], "label", "count", f"Leading {selected} categories")
-        st.caption("These counts describe report volume and categories, not risk, severity, or performance.")
 
 with history_tab:
     st.subheader("Saved corrections")
     try:
         history = review_history(Path("data/annotations/reviews.jsonl"))
         if history:
-            rows = [
-                {"Reviewed": item["reviewed_at"], "Domain": item["domain"].title(), "Findings": len(item["corrected_entities"]), "Note": item["note"]}
-                for item in history
-            ]
+            rows = [{"Reviewed": item["reviewed_at"], "Domain": item["domain"].title(), "Findings": len(item["corrected_entities"]), "Note": item["note"]} for item in history]
             st.dataframe(rows, hide_index=True, width="stretch")
-            donut(
-                [{"domain": domain.title(), "count": count} for domain, count in Counter(item["domain"] for item in history).items()],
-                "domain", "count", "Corrections by domain",
-            )
         else:
             st.info("Corrections saved from the review panel will appear here.")
     except ValueError as exc:

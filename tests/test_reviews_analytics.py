@@ -59,3 +59,15 @@ def test_review_history_is_append_ordered(tmp_path):
     append_review(path, review_payload(item, [entity.model_dump() for entity in item.entities], "First"))
     history = review_history(path)
     assert len(history) == 1 and history[0]["note"] == "First"
+
+
+def test_review_analytics_summarizes_confirmation_and_changes():
+    from inspection_nlp.reviews import review_analytics
+
+    item = record()
+    original = [entity.model_dump() for entity in item.entities]
+    changed = [original[0], {**original[1], "label": "MATERIAL"}]
+    analytics = review_analytics([{"original_entities": original, "corrected_entities": changed}])
+    assert analytics["outcomes"]["Confirmed"] == 1
+    assert analytics["correction_types"]["Label or status changed"] == 1
+    assert analytics["before_after"]["Reviewed"]["MATERIAL"] == 1
