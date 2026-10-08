@@ -22,7 +22,7 @@ class Entity(BaseModel):
         "CORRECTIVE_ACTION",
         "DATE",
     ]
-    text: str
+    text: str = Field(min_length=1)
     evidence_start: int = Field(ge=0)
     evidence_end: int = Field(gt=0)
     assertion: Literal["present", "negated", "possible", "historical", "resolved"]
@@ -42,7 +42,7 @@ class Finding(BaseModel):
 
 
 class ReviewCandidate(BaseModel):
-    text: str
+    text: str = Field(min_length=1)
     evidence_start: int = Field(ge=0)
     evidence_end: int = Field(gt=0)
     reason: str
@@ -88,21 +88,43 @@ class Record(BaseModel):
         if self.clean_to_display:
             if len(self.clean_to_display) != len(self.clean_text) + 1:
                 raise ValueError("Invalid normalized offset map length")
-            if self.clean_to_display != sorted(self.clean_to_display) or self.clean_to_display[-1] != len(self.display_text):
+            if self.clean_to_display != sorted(self.clean_to_display) or self.clean_to_display[
+                -1
+            ] != len(self.display_text):
                 raise ValueError("Invalid normalized offset map bounds")
         for entity in [*self.entities, *self.review_candidates]:
             if self.display_text[entity.evidence_start : entity.evidence_end] != entity.text:
                 raise ValueError("Entity evidence must match display_text offsets")
-        evidence_keys = {(e.label, e.evidence_start, e.evidence_end, e.text) for e in self.entities}
+        evidence_keys = {
+            (e.label, e.evidence_start, e.evidence_end, e.text, e.assertion) for e in self.entities
+        }
         for finding in self.findings:
             if finding.defect.label != "DEFECT":
                 raise ValueError("Finding must reference a defect")
             for label, evidence in finding.links.items():
-                if label not in {"COMPONENT", "MATERIAL", "MEASUREMENT", "REPORTED_SEVERITY", "CAUSE", "CORRECTIVE_ACTION", "INSPECTION_METHOD", "LOCATION"}:
+                if label not in {
+                    "COMPONENT",
+                    "MATERIAL",
+                    "MEASUREMENT",
+                    "REPORTED_SEVERITY",
+                    "CAUSE",
+                    "CORRECTIVE_ACTION",
+                    "INSPECTION_METHOD",
+                    "LOCATION",
+                }:
                     raise ValueError("Unsupported relationship label")
                 if any(e.label != label for e in evidence):
                     raise ValueError("Relationship label must match evidence")
-            for e in [finding.defect, *(item for evidence in finding.links.values() for item in evidence)]:
-                if (e.label, e.evidence_start, e.evidence_end, e.text) not in evidence_keys:
+            for e in [
+                finding.defect,
+                *(item for evidence in finding.links.values() for item in evidence),
+            ]:
+                if (
+                    e.label,
+                    e.evidence_start,
+                    e.evidence_end,
+                    e.text,
+                    e.assertion,
+                ) not in evidence_keys:
                     raise ValueError("Finding evidence must reference this record")
         return self

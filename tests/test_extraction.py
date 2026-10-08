@@ -8,7 +8,9 @@ from inspection_nlp.extraction import extract
 
 
 def run(text, domain="general", contextual=True):
-    return extract(parse_document(text.encode(), "test.txt", domain=domain)[0], contextual=contextual)
+    return extract(
+        parse_document(text.encode(), "test.txt", domain=domain)[0], contextual=contextual
+    )
 
 
 @pytest.mark.parametrize(

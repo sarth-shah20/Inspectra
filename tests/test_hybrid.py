@@ -17,21 +17,24 @@ def test_hybrid_adds_non_overlapping_silver_ner_span(tmp_path, monkeypatch):
         ("zorbulator", "ner"),
         ("cracked", "ruler"),
     ]
-    assert result.document_metadata["hybrid_model_provenance"] == "ai_silver_labels_not_human_validated"
+    assert (
+        result.document_metadata["hybrid_model_provenance"]
+        == "ai_silver_labels_not_human_validated"
+    )
     load_silver_ner.cache_clear()
 
 
 def test_default_threshold_and_mixed_assertions(tmp_path, monkeypatch):
-    monkeypatch.setattr('inspection_nlp.extraction.english_model', lambda: None)
-    model = spacy.blank('en')
-    model.add_pipe('entity_ruler').add_patterns([{'label': 'COMPONENT', 'pattern': 'zorbulator'}])
-    path = tmp_path / 'model'
+    monkeypatch.setattr("inspection_nlp.extraction.english_model", lambda: None)
+    model = spacy.blank("en")
+    model.add_pipe("entity_ruler").add_patterns([{"label": "COMPONENT", "pattern": "zorbulator"}])
+    path = tmp_path / "model"
     model.to_disk(path)
-    item = parse_document(b'No crack observed; zorbulator leaking.', 'note.txt')[0]
+    item = parse_document(b"No crack observed; zorbulator leaking.", "note.txt")[0]
     result = extract_hybrid(item, path)
-    assert any(e.extraction_method == 'ner' for e in result.entities)
-    assert result.assertion_status == 'unknown'
+    assert any(e.extraction_method == "ner" for e in result.entities)
+    assert result.assertion_status == "unknown"
     high = extract_hybrid(item, path, threshold=0.95)
     assert not high.entities
-    assert high.mapping_status == 'unmapped'
+    assert high.mapping_status == "unmapped"
     load_silver_ner.cache_clear()

@@ -121,14 +121,20 @@ def parse_document(
                 headers = list(next(values, ()))
                 if headers.count(text_column) != 1:
                     raise ValueError("Narrative column must exist exactly once.")
-                for field, mapped in metadata_columns.items():
+                for mapped in metadata_columns.values():
                     if headers.count(mapped) != 1:
                         raise ValueError(f"Metadata column {mapped} must exist exactly once")
                 column = headers.index(text_column)
                 for index, row in enumerate(values):
                     if index >= MAX_ROWS:
                         raise ValueError("Table exceeds the 10,000-row upload limit.")
-                    row_values[index] = normalize_metadata({field: row[headers.index(mapped)] for field, mapped in metadata_columns.items()}, date_format)
+                    row_values[index] = normalize_metadata(
+                        {
+                            field: row[headers.index(mapped)]
+                            for field, mapped in metadata_columns.items()
+                        },
+                        date_format,
+                    )
                     value = row[column]
                     segments.append((str(value) if value is not None else "", index, {}))
             finally:
@@ -146,17 +152,31 @@ def parse_document(
                     raise ValueError("Table exceeds the 10,000-row upload limit.")
                 if None in row or any(v is None for v in row.values()):
                     raise ValueError(f"Malformed table row {index + 2}.")
-                row_values[index] = normalize_metadata({field: row[mapped] for field, mapped in metadata_columns.items()}, date_format)
+                row_values[index] = normalize_metadata(
+                    {field: row[mapped] for field, mapped in metadata_columns.items()}, date_format
+                )
                 segments.append((row[text_column], index, {}))
     elif suffix == ".txt":
         segments.append((data.decode(encoding), 0, {}))
     else:
         raise ValueError("Supported formats: PDF, DOCX, CSV, XLSX, TSV, and TXT.")
     records = [
-        _record(text, filename, digest, index, domain, text_column or "text", metadata,
-                {**supplied, **row_values.get(index, {})},
-                {**{key: "user" for key in supplied}, **{key: f"column:{metadata_columns[key]}" for key in row_values.get(index, {})}},
-                vendor_aliases, table)
+        _record(
+            text,
+            filename,
+            digest,
+            index,
+            domain,
+            text_column or "text",
+            metadata,
+            {**supplied, **row_values.get(index, {})},
+            {
+                **{key: "user" for key in supplied},
+                **{key: f"column:{metadata_columns[key]}" for key in row_values.get(index, {})},
+            },
+            vendor_aliases,
+            table,
+        )
         for text, index, metadata in segments
         if text.strip()
     ]
@@ -172,21 +192,28 @@ def parse_document(
 def table_headers(data: bytes, filename: str, encoding: str = "utf-8-sig") -> list[str]:
     if Path(filename).suffix.lower() == ".xlsx":
         from openpyxl import load_workbook
+
         workbook = load_workbook(io.BytesIO(data), read_only=True, data_only=True)
         try:
             return [str(x) for x in next(workbook.active.values, ()) if x is not None]
         finally:
             workbook.close()
-    reader = csv.reader(io.StringIO(data.decode(encoding)), delimiter="," if filename.lower().endswith(".csv") else "\t")
+    reader = csv.reader(
+        io.StringIO(data.decode(encoding)),
+        delimiter="," if filename.lower().endswith(".csv") else "\t",
+    )
     return next(reader, [])
 
 
 def parse_batch(files: list[tuple[str, bytes]], **settings) -> tuple[list[Record], list[dict]]:
     from zipfile import BadZipFile
+
     records, errors = [], []
     for name, data in files:
         try:
             records.extend(parse_document(data, name, **settings))
         except (ValueError, UnicodeError, RuntimeError, BadZipFile, KeyError, IndexError) as exc:
-            errors.append({"file": name, "error": str(exc), "quality_flag": "unsupported_or_malformed"})
+            errors.append(
+                {"file": name, "error": str(exc), "quality_flag": "unsupported_or_malformed"}
+            )
     return records, errors

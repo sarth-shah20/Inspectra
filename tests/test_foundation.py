@@ -152,7 +152,9 @@ def test_phmsa_windows_encoding(tmp_path):
     assert record.clean_text == "Valve “failed”."
     assert record.document_metadata["encoding"] == "cp1252"
 
-def test_dashboard_shell():
+
+def test_dashboard_shell(monkeypatch, tmp_path):
+    monkeypatch.setenv("INSPECTRA_DB", str(tmp_path / "library.sqlite3"))
     from streamlit.testing.v1 import AppTest
 
     app = AppTest.from_file("../app/streamlit_app.py").run()
@@ -163,7 +165,8 @@ def test_dashboard_shell():
     assert any("Needs review" in element.value for element in app.subheader)
 
 
-def test_dashboard_reanalyzes_after_domain_change():
+def test_dashboard_reanalyzes_after_domain_change(monkeypatch, tmp_path):
+    monkeypatch.setenv("INSPECTRA_DB", str(tmp_path / "library.sqlite3"))
     from streamlit.testing.v1 import AppTest
 
     app = AppTest.from_file("../app/streamlit_app.py").run()

@@ -8,8 +8,8 @@ from datetime import UTC, datetime
 from itertools import pairwise
 from pathlib import Path
 
-from .schemas import Entity, Record
 from .findings import edit_relationships, with_findings
+from .schemas import Entity, Record
 
 
 def human_entities(record: Record, rows: list[dict]) -> list[Entity]:
@@ -38,7 +38,9 @@ def human_entities(record: Record, rows: list[dict]) -> list[Entity]:
     return entities
 
 
-def review_payload(record: Record, edited_rows: list[dict], note: str, relationship_edits: list[dict] | None = None) -> dict:
+def review_payload(
+    record: Record, edited_rows: list[dict], note: str, relationship_edits: list[dict] | None = None
+) -> dict:
     corrected = human_entities(record, edited_rows)
     payload = record.model_dump()
     payload.update(entities=[e.model_dump() for e in corrected], findings=[], relations=[])
@@ -88,9 +90,11 @@ def review_history(path: Path) -> list[dict]:
 def review_analytics(history: list[dict]) -> dict:
     """Aggregate reviewer changes without exposing reviewed narrative text."""
     original_labels, corrected_labels, assertions = Counter(), Counter(), Counter()
-    outcomes, correction_types, confidence = Counter(), Counter(), {
-        "0–49%": [0, 0], "50–74%": [0, 0], "75–94%": [0, 0], "95–100%": [0, 0]
-    }
+    outcomes, correction_types, confidence = (
+        Counter(),
+        Counter(),
+        {"0–49%": [0, 0], "50–74%": [0, 0], "75–94%": [0, 0], "95–100%": [0, 0]},
+    )
     for review in history:
         original = review["original_entities"]
         corrected = review["corrected_entities"]
@@ -108,10 +112,17 @@ def review_analytics(history: list[dict]) -> dict:
         outcomes["Confirmed"] += len(original_keys & corrected_keys)
         outcomes["Removed or changed"] += len(original_keys - corrected_keys)
         outcomes["Added or changed"] += len(corrected_keys - original_keys)
-        corrected_boundaries = {(item["evidence_start"], item["evidence_end"]) for item in corrected}
+        corrected_boundaries = {
+            (item["evidence_start"], item["evidence_end"]) for item in corrected
+        }
         original_boundaries = {(item["evidence_start"], item["evidence_end"]) for item in original}
         for entity in original:
-            key = (entity["evidence_start"], entity["evidence_end"], entity["label"], entity["assertion"])
+            key = (
+                entity["evidence_start"],
+                entity["evidence_end"],
+                entity["label"],
+                entity["assertion"],
+            )
             if key in corrected_keys:
                 action = "Confirmed"
             elif (entity["evidence_start"], entity["evidence_end"]) in corrected_boundaries:
@@ -120,7 +131,15 @@ def review_analytics(history: list[dict]) -> dict:
                 action = "Removed or boundary changed"
             correction_types[action] += 1
             score = entity["confidence"]
-            band = "0–49%" if score < 0.5 else "50–74%" if score < 0.75 else "75–94%" if score < 0.95 else "95–100%"
+            band = (
+                "0–49%"
+                if score < 0.5
+                else "50–74%"
+                if score < 0.75
+                else "75–94%"
+                if score < 0.95
+                else "95–100%"
+            )
             confidence[band][0] += 1
             confidence[band][1] += action == "Confirmed"
         correction_types["Added"] += len(corrected_boundaries - original_boundaries)
@@ -130,8 +149,13 @@ def review_analytics(history: list[dict]) -> dict:
         "before_after": {"Initial": dict(original_labels), "Reviewed": dict(corrected_labels)},
         "assertions": dict(assertions),
         "confidence": [
-            {"band": band, "findings": total, "confirmed": confirmed,
-             "confirmation_rate": round(confirmed / total * 100, 1) if total else 0}
-            for band, (total, confirmed) in confidence.items() if total
+            {
+                "band": band,
+                "findings": total,
+                "confirmed": confirmed,
+                "confirmation_rate": round(confirmed / total * 100, 1) if total else 0,
+            }
+            for band, (total, confirmed) in confidence.items()
+            if total
         ],
     }

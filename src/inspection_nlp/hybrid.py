@@ -7,18 +7,33 @@ from pathlib import Path
 
 import spacy
 
+from .artifacts import artifact_fingerprint
 from .extraction import assertion, extract
-from .schemas import Entity, Record
 from .findings import with_findings
+from .schemas import Entity, Record
+
+
+def load_silver_ner(model_path: str):
+    return _load_ner(model_path, artifact_fingerprint(Path(model_path)))
 
 
 @lru_cache(maxsize=2)
-def load_silver_ner(model_path: str):
+def _load_ner(model_path: str, fingerprint: str):
     """Load a local model artifact; callers choose whether it is appropriate to use."""
     return spacy.load(model_path)
 
 
-def extract_hybrid(record: Record, model_path: Path, *, threshold: float = 0.5, contextual: bool = True, pack_paths: tuple[str, ...] = ()) -> Record:
+load_silver_ner.cache_clear = _load_ner.cache_clear
+
+
+def extract_hybrid(
+    record: Record,
+    model_path: Path,
+    *,
+    threshold: float = 0.5,
+    contextual: bool = True,
+    pack_paths: tuple[str, ...] = (),
+) -> Record:
     """Merge strict-token NER spans into rules without replacing deterministic evidence."""
     if not 0 <= threshold <= 1:
         raise ValueError("Threshold must be between zero and one")
@@ -47,8 +62,11 @@ def extract_hybrid(record: Record, model_path: Path, *, threshold: float = 0.5, 
     metadata = dict(result.document_metadata)
     metadata.update(
         hybrid_model=str(model_path),
+        hybrid_model_sha256=artifact_fingerprint(model_path),
         hybrid_policy="all-candidates-threshold-v2",
-        hybrid_model_provenance=nlp.meta.get("inspectra_provenance", "ai_silver_labels_not_human_validated"),
+        hybrid_model_provenance=nlp.meta.get(
+            "inspectra_provenance", "ai_silver_labels_not_human_validated"
+        ),
         hybrid_threshold=str(threshold),
         confidence_kind="uncalibrated_rule_and_silver_ner_scores",
         review_reason="Silver NER spans and rule assertions require human review",
@@ -58,7 +76,16 @@ def extract_hybrid(record: Record, model_path: Path, *, threshold: float = 0.5, 
         entities=[entity.model_dump() for entity in entities],
         document_metadata=metadata,
         mapping_status="review_required" if defects or result.review_candidates else "unmapped",
-        assertion_status=next(iter({entity.assertion for entity in defects})) if len({entity.assertion for entity in defects}) == 1 else "unknown",
-        reported_severity="; ".join(dict.fromkeys(e.text for e in entities if e.label == "REPORTED_SEVERITY" and e.assertion == "present")) or None,
+        assertion_status=next(iter({entity.assertion for entity in defects}))
+        if len({entity.assertion for entity in defects}) == 1
+        else "unknown",
+        reported_severity="; ".join(
+            dict.fromkeys(
+                e.text
+                for e in entities
+                if e.label == "REPORTED_SEVERITY" and e.assertion == "present"
+            )
+        )
+        or None,
     )
     return with_findings(Record.model_validate({**payload, "findings": [], "relations": []}))
