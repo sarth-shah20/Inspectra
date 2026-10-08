@@ -10,6 +10,8 @@ import spacy
 from spacy.training import Example
 from spacy.util import fix_random_seed
 
+from inspection_nlp.evaluation import LABELS
+
 
 def ex(nlp,row,labels=None):
     ents=[(e['evidence_start'],e['evidence_end'],e['label']) for e in row['entities'] if labels is None or e['label'] in labels]
@@ -22,12 +24,12 @@ def score(nlp,rows,labels):
     c=len(p&g); precision=c/len(p) if p else 0; recall=c/len(g) if g else 0
     return {'records':len(rows),'compatible_labels':sorted(labels),'predicted_entities':len(p),'reference_entities':len(g),'exact_precision':precision,'exact_recall':recall,'exact_f1':2*precision*recall/(precision+recall) if precision+recall else 0}
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--input',type=Path,default=Path('data/annotations/ai_annotated.jsonl'));p.add_argument('--output',type=Path,default=Path('reports/provisional_heldout_domain_evaluation.json'));a=p.parse_args()
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--input',type=Path,default=Path('data/annotations/ai_annotated.jsonl'));p.add_argument('--output',type=Path,default=Path('reports/provisional_heldout_domain_evaluation_v2.json'));a=p.parse_args()
  if a.output.exists():p.error('refusing to overwrite report')
  rows=[json.loads(x) for x in a.input.open()]; report={'scope':'Provisional evaluation against AI-assisted labels only; not human-validated generalization performance.','experiments':{}}
  for heldout in ('construction','aviation','pipeline'):
   train=[r for r in rows if r['split']=='train' and r['domain']!=heldout]; test=[r for r in rows if r['split']=='test' and r['domain']==heldout]
-  labels={e['label'] for r in train for e in r['entities']} & {e['label'] for r in test for e in r['entities']}
+  labels=set(LABELS)
   fix_random_seed(17);random.seed(17);nlp=spacy.blank('en');ner=nlp.add_pipe('ner')
   for x in labels:ner.add_label(x)
   examples=[ex(nlp,r,labels) for r in train]; opt=nlp.initialize(lambda examples=examples:examples)

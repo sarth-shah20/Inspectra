@@ -1,0 +1,6 @@
+{
+  "status": "pending_human_validation",
+  "scope": "Software supports arbitrary vendor identities and English industries; accuracy on unseen vendors has not been established.",
+  "experiments": {},
+  "required": ["Representative privacy-reviewed vendor reports", "Two independent annotations and adjudication", "Frozen vendor/template/industry/temporal evaluation manifests"]
+}

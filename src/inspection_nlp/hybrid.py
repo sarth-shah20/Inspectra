@@ -48,7 +48,7 @@ def extract_hybrid(record: Record, model_path: Path, *, threshold: float = 0.5, 
     metadata.update(
         hybrid_model=str(model_path),
         hybrid_policy="all-candidates-threshold-v2",
-        hybrid_model_provenance="ai_silver_labels_not_human_validated",
+        hybrid_model_provenance=nlp.meta.get("inspectra_provenance", "ai_silver_labels_not_human_validated"),
         hybrid_threshold=str(threshold),
         confidence_kind="uncalibrated_rule_and_silver_ner_scores",
         review_reason="Silver NER spans and rule assertions require human review",

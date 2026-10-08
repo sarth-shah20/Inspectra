@@ -1,7 +1,7 @@
-# Inspectra entity annotation guide — pilot v1
+# Inspectra entity annotation guide — vendor pilot v2
 
 This guide defines the first human annotation pilot. It applies to privacy-reviewed English
-narratives from construction/fire-door, FAA SDR, and PHMSA pipeline reports. Annotate explicit
+vendor reports across industries. Construction/fire-door, FAA SDR, and PHMSA are optional research sources. Annotate explicit
 evidence only. Do not infer engineering status, compliance, vendor identity, severity, a cause,
 or a corrective action that the narrative does not state.
 
@@ -20,8 +20,7 @@ or a corrective action that the narrative does not state.
 | `CORRECTIVE_ACTION` | A stated repair or action | `replaced`, `repair required` |
 | `DATE` | A date written in the narrative | `2024-01-02` |
 
-Do not annotate `VENDOR` or `PRODUCT` in this pilot unless a second annotator can apply them
-consistently. Do not label source codes or a source-provided document class unless its literal
+Annotate `VENDOR` and `PRODUCT` only when their role is explicit; both annotators must apply the same boundary and role rules. Do not label source codes or a source-provided document class unless its literal
 wording is present in the narrative.
 
 ## Span boundaries and overlap
@@ -67,3 +66,33 @@ defect remains an annotated span; its status prevents it being counted as an act
 The initial target is 75–100 records per domain, stratified by source class/cause. A candidate
 batch is not gold data. Keep exported candidates, human annotations, weak labels, and model
 predictions in distinct versioned locations.
+
+## Vendor metadata and relationships
+
+Confirm explicit vendor/supplier identity, report date/ID, product, batch and asset metadata.
+Do not infer a vendor from an arbitrary organisation mention. Mark missing metadata unknown.
+Vendor and product spans are permitted only when their role is explicit in the report.
+
+For every DEFECT create a finding with the defect evidence reference. Annotate component,
+material, measurement, severity, method, cause, action and location links only when supported.
+Explicitly leave ambiguous links empty and mark the finding ambiguous. Preserve unknown
+terminology without forcing categories. Independently annotate unsupported inspection/action
+clauses as review candidates; these are not confirmed defects.
+
+## Human gold workflow
+
+Use `scripts/generalisation.py batch` with an external approved-record-ID file to export
+blinded library candidates. Preserve structural evidence text and its offsets. Each candidate
+requires two independent annotator IDs, an adjudicator, annotation version and final status
+`adjudicated` before evaluation. Ordinary single-reviewer app corrections are not gold data.
+
+Freeze separate vendor, template, industry and temporal manifests using the `split` command.
+Connected report/event/template families must stay together. Vendor splits group all records
+from each normalized vendor; groups bridging vendors stay out of training if any is held out.
+Temporal families crossing cutoffs are quarantined. Exact/numeric templates plus conservative
+token overlap are safeguards, not a complete paraphrase detector.
+
+Train with the `train` command only after adjudication; it selects between fixed 10/20-epoch
+candidates on validation data. Run `evaluate` once on the sealed test partition and version
+the output. The fixed label set includes test-only labels so unsupported labels count as misses.
+Never adjust terminology, thresholds or model settings using test errors.

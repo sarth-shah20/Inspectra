@@ -351,6 +351,14 @@ def quality_page(records):
     versions = Counter((r.document_metadata.get('extractor_version', 'unknown'), r.document_metadata.get('extraction_mode', 'unknown')) for r in records)
     table([{'version': v, 'mode': mode, 'narratives': n} for (v, mode), n in versions.items()])
     files = ['fire_door_baseline.json', 'faa-part-condition_baseline.json', 'phmsa-cause_baseline.json', 'silver_ner_evaluation.json', 'provisional_hybrid_calibration_v2.json', 'generalisation_evaluation.json']
+    for path in sorted((ROOT / "reports").glob("*.json")):
+        if path.name not in files:
+            try:
+                artifact = json.loads(path.read_text())
+                if artifact.get("status") == "measured" and "partition_mode" in artifact:
+                    files.append(path.name)
+            except (ValueError, OSError):
+                pass
     for name in files:
         path = ROOT / 'reports' / name
         if path.exists():
