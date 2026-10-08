@@ -16,6 +16,8 @@ def human_entities(record: Record, rows: list[dict]) -> list[Entity]:
     entities = []
     for row in rows:
         start, end = int(row["evidence_start"]), int(row["evidence_end"])
+        if start < 0 or end > len(record.display_text) or end <= start:
+            raise ValueError("Evidence offsets must be within the narrative")
         entity = Entity(
             label=row["label"],
             text=record.display_text[start:end],
