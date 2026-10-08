@@ -24,3 +24,24 @@ def prepare_text(text: str) -> tuple[str, bool]:
         text, count = pattern.subn("[REDACTED]", text)
         sensitive |= count > 0
     return text, sensitive
+
+
+def prepare_evidence(text: str) -> tuple[str, str, list[int], bool]:
+    """Preserve structural whitespace; map normalized characters to redacted evidence."""
+    evidence = unicodedata.normalize('NFKC', text).replace('\r\n', '\n').replace('\r', '\n')
+    sensitive = False
+    for pattern in REDACTORS:
+        evidence, count = pattern.subn('[REDACTED]', evidence)
+        sensitive |= bool(count)
+    evidence = evidence.strip()
+    chars, offsets = [], []
+    for match in re.finditer(r'\S+|\s+', evidence):
+        value = match.group()
+        if value.isspace():
+            chars.append(' ')
+            offsets.append(match.start())
+        else:
+            chars.extend(value)
+            offsets.extend(range(match.start(), match.end()))
+    offsets.append(len(evidence))
+    return evidence, ''.join(chars), offsets, sensitive

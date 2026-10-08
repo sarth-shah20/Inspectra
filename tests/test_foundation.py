@@ -158,7 +158,7 @@ def test_dashboard_shell():
     app = AppTest.from_file("../app/streamlit_app.py").run()
     assert not app.exception
     app.text_area[0].input("Unknown widget failed.").run()
-    app.button[0].click().run()
+    next(b for b in app.button if b.label == "Analyze findings").click().run()
     assert not app.exception
     assert any("Needs review" in element.value for element in app.subheader)
 
@@ -168,8 +168,8 @@ def test_dashboard_reanalyzes_after_domain_change():
 
     app = AppTest.from_file("../app/streamlit_app.py").run()
     app.text_area[0].input("Valve cracked.").run()
-    app.button[0].click().run()
+    next(b for b in app.button if b.label == "Analyze findings").click().run()
     assert not app.exception
     app.sidebar.selectbox[0].select("Pipeline").run()
-    app.button[0].click().run()
+    next(b for b in app.button if b.label == "Analyze findings").click().run()
     assert not app.exception

@@ -11,7 +11,8 @@ import streamlit as st
 
 from inspection_nlp.analytics import review_summary
 from inspection_nlp.classification import predict
-from inspection_nlp.documents import parse_document
+from inspection_nlp.documents import parse_batch, table_headers
+from inspection_nlp.metadata import FIELDS, load_profiles, save_profile
 from inspection_nlp.export import export_csv, export_json, highlight
 from inspection_nlp.extraction import extract
 from inspection_nlp.hybrid import extract_hybrid
@@ -100,11 +101,43 @@ with analyze_tab:
     left, right = st.columns([1.1, 0.9], gap="large")
     with left:
         st.subheader("Add an inspection report")
-        upload = st.file_uploader("Upload a file", type=["pdf", "docx", "csv", "xlsx", "tsv", "txt"])
+        uploads = st.file_uploader("Upload reports", type=["pdf", "docx", "csv", "xlsx", "tsv", "txt"], accept_multiple_files=True)
+        upload = uploads[0] if uploads else None
         paste = st.text_area("Or paste a narrative", height=130, placeholder="Paste an inspection narrative…")
         text_column = st.text_input("Narrative column", help="Required only for CSV, TSV, and XLSX files.")
         tabular_txt = st.checkbox("My TXT file is tabular")
         encoding = st.selectbox("Text encoding", ["utf-8-sig", "cp1252"])
+        metadata = {}
+        columns = {}
+        date_format = st.selectbox("Date format", ["%Y-%m-%d", "%d/%m/%Y", "%m/%d/%Y"])
+        with st.expander("Report metadata and column mappings"):
+            profiles = load_profiles(Path("data/local/mappings.json"))
+            profile_name = st.selectbox("Saved mapping", ["None", *profiles])
+            profile = profiles.get(profile_name, {})
+            headers = []
+            if upload and (Path(upload.name).suffix in {".csv", ".tsv", ".xlsx"} or tabular_txt):
+                try:
+                    headers = table_headers(upload.getvalue(), upload.name, encoding)
+                except (ValueError, UnicodeError, BadZipFile) as exc:
+                    st.error(str(exc))
+            if headers:
+                selected_text = st.selectbox("Narrative column mapping", headers, index=headers.index(profile.get("text_column")) if profile.get("text_column") in headers else 0)
+                text_column = selected_text
+            for field in FIELDS:
+                metadata[field] = st.text_input(field.replace("_", " ").title(), key=f"metadata_{field}")
+                if headers:
+                    options = ["Not mapped", *headers]
+                    default = profile.get("metadata_columns", {}).get(field, "Not mapped")
+                    selected = st.selectbox(f"Column for {field}", options, index=options.index(default) if default in options else 0)
+                    if selected != "Not mapped":
+                        columns[field] = selected
+            new_name = st.text_input("Mapping profile name")
+            if st.button("Save mapping profile"):
+                try:
+                    save_profile(Path("data/local/mappings.json"), new_name, {"text_column": text_column, "metadata_columns": columns})
+                    st.success("Mapping saved")
+                except ValueError as exc:
+                    st.error(str(exc))
         run = st.button("Analyze findings", type="primary", width="stretch")
     with right:
         st.subheader("What you receive")
@@ -116,7 +149,7 @@ with analyze_tab:
         """)
         st.info("Findings support review; they do not determine compliance or engineering risk.")
 
-    signature = hashlib.sha256(repr((upload.getvalue() if upload else None, paste, text_column, tabular_txt, encoding, domain, use_silver_ner)).encode()).hexdigest()
+    signature = hashlib.sha256(repr(([(u.name, u.getvalue()) for u in uploads], paste, text_column, tabular_txt, encoding, domain, use_silver_ner, metadata, columns, date_format)).encode()).hexdigest()
     if st.session_state.get("analysis_signature") != signature:
         st.session_state.pop("results", None)
         st.session_state.pop("fire_door_prediction", None)
@@ -125,14 +158,14 @@ with analyze_tab:
             st.warning("Add a report or paste a narrative before analyzing.")
         else:
             try:
-                records = parse_document(
-                    upload.getvalue() if upload else paste.encode(),
-                    upload.name if upload else "pasted.txt",
-                    domain=domain,
-                    text_column=text_column or None,
-                    tabular_txt=tabular_txt,
-                    encoding=encoding if upload else "utf-8-sig",
-                )
+                files = [(u.name, u.getvalue()) for u in uploads]
+                if paste.strip():
+                    files.append(("pasted.txt", paste.encode()))
+                records, errors = parse_batch(files, domain=domain, text_column=text_column or None,
+                    tabular_txt=tabular_txt, encoding=encoding if upload else "utf-8-sig",
+                    metadata_columns=columns, report_metadata=metadata, date_format=date_format)
+                for error in errors:
+                    st.error(f"{error['file']}: {error['error']}")
                 with st.spinner("Finding evidence…"):
                     results = [
                         extract_hybrid(record, silver_model_path) if use_silver_ner else extract(record)

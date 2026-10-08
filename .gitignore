@@ -9,3 +9,6 @@ data/interim/
 data/processed/
 data/annotations/
 models/
+data/local/
+*.sqlite3
+*.sqlite3-*

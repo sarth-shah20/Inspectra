@@ -2,7 +2,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-Domain = Literal["construction", "aviation", "pipeline", "general"]
+Domain = str
 Split = Literal["train", "validation", "test"]
 
 
@@ -48,6 +48,11 @@ class Record(BaseModel):
     display_text: str
     structured_source_fields: dict[str, str] = Field(default_factory=dict)
     document_metadata: dict[str, str] = Field(default_factory=dict)
+    report_id: str = ""
+    report_metadata: dict[str, str] = Field(default_factory=dict)
+    metadata_provenance: dict[str, str] = Field(default_factory=dict)
+    quality_flags: list[str] = Field(default_factory=list)
+    clean_to_display: list[int] = Field(default_factory=list)
     entities: list[Entity] = Field(default_factory=list)
     relations: list[dict] = Field(default_factory=list)
     reported_severity: str | None = None
@@ -60,6 +65,11 @@ class Record(BaseModel):
 
     @model_validator(mode="after")
     def check_evidence(self):
+        if self.clean_to_display:
+            if len(self.clean_to_display) != len(self.clean_text) + 1:
+                raise ValueError("Invalid normalized offset map length")
+            if self.clean_to_display != sorted(self.clean_to_display) or self.clean_to_display[-1] != len(self.display_text):
+                raise ValueError("Invalid normalized offset map bounds")
         for entity in self.entities:
             if self.display_text[entity.evidence_start : entity.evidence_end] != entity.text:
                 raise ValueError("Entity evidence must match display_text offsets")
