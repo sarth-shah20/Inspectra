@@ -1,0 +1,3 @@
+version: workflow-priority-v1
+high_severity: [major, critical, severe]
+urgent_action_terms: [urgent, immediate, immediately]

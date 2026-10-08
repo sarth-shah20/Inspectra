@@ -38,6 +38,7 @@ class Finding(BaseModel):
     ambiguous: bool = False
     priority: Literal["high", "normal", "low", "disabled"] = "normal"
     priority_reasons: list[str] = Field(default_factory=list)
+    recurrence_previous: list[str] = Field(default_factory=list)
 
 
 class ReviewCandidate(BaseModel):

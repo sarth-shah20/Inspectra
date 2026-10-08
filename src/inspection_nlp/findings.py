@@ -46,7 +46,8 @@ def with_findings(record: Record) -> Record:
         {'finding_id': f['finding_id'], 'label': label, 'evidence_start': e['evidence_start'],
          'evidence_end': e['evidence_end']}
         for f in payload['findings'] for label, evidence in f['links'].items() for e in evidence]
-    return Record.model_validate(payload)
+    from .priority import prioritize
+    return prioritize(Record.model_validate(payload))
 
 
 def relationship_rows(record: Record) -> list[dict]:
@@ -73,4 +74,5 @@ def edit_relationships(record: Record, rows: list[dict]) -> Record:
             linked.append(evidence.model_dump())
     reviewed = Record.model_validate(payload)
     payload['relations'] = relationship_rows(reviewed)
-    return Record.model_validate(payload)
+    from .priority import prioritize
+    return prioritize(Record.model_validate(payload))

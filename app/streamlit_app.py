@@ -21,6 +21,7 @@ from inspection_nlp.hybrid import extract_hybrid
 from inspection_nlp.findings import relationship_rows
 from inspection_nlp.reviews import review_payload
 from inspection_nlp.storage import Library
+from inspection_nlp.priority import prioritize, with_recurrence
 
 st.set_page_config(page_title="Inspectra", page_icon="🔎", layout="wide", initial_sidebar_state="expanded")
 
@@ -96,6 +97,7 @@ with st.sidebar:
     )
     if english_model() is None:
         st.warning("Rules-only coverage: pinned English model unavailable")
+    priority_enabled = st.toggle("Review priorities", value=True)
     custom_industry = st.text_input("Other industry (optional)")
     domain = custom_industry.strip().lower() or domain
     pack_text = st.text_input("Optional terminology pack paths (comma-separated)")
@@ -192,6 +194,7 @@ with analyze_tab:
 
     show_library = st.checkbox("Show saved report library")
     results = library.records() if show_library else st.session_state.get("results", [])
+    results = with_recurrence([prioritize(r, priority_enabled) for r in results])
     if results:
         summary = review_summary(results)
         metric_columns = st.columns(4)
@@ -218,6 +221,7 @@ with analyze_tab:
             for entity in record.entities
         ]
         st.dataframe(finding_rows, hide_index=True)
+        st.dataframe([{ "Defect": f.defect.text, "Priority": f.priority, "Reasons": "; ".join(f.priority_reasons), "Previous reports": len(f.recurrence_previous)} for f in record.findings], hide_index=True)
         selected_entities = record.entities
         active = sum(entity.label == "DEFECT" and entity.assertion == "present" for entity in selected_entities)
         contextual = sum(entity.label == "DEFECT" and entity.assertion != "present" for entity in selected_entities)
@@ -276,11 +280,12 @@ with analyze_tab:
             )
             st.caption("Relationships reference evidence offsets in this narrative. Remove an association to leave it unlinked.")
             links = st.data_editor(relationship_rows(record), num_rows="dynamic", key=f"links_{record.record_id}", disabled=["text"], hide_index=True)
+            workflow = st.selectbox("Review workflow", ["reviewed", "in_progress", "pending"], key=f"workflow_{record.record_id}")
             review_note = st.text_area("Review note", key=f"note_{record.record_id}")
             if st.button("Save correction", key=f"save_{record.record_id}"):
                 try:
                     payload = review_payload(record, editor_rows if isinstance(editor_rows, list) else editor_rows.to_dict("records"), review_note, links if isinstance(links, list) else links.to_dict("records"))
-                    corrected = library.save_review(record, payload)
+                    corrected = library.save_review(record, payload, workflow)
                     if not show_library:
                         st.session_state["results"][record_index] = corrected
                     st.success("Correction saved to review history.")

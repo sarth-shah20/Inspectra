@@ -115,7 +115,8 @@ class Library:
             cursor = db.execute('INSERT INTO revisions(run_id,record_id,payload,created_at) VALUES (?,?,?,?)',
                                 (run_id, record.record_id, json.dumps(payload), timestamp))
             payload['document_metadata'].update(review_version=str(cursor.lastrowid), reviewed_at=timestamp)
-        return Record.model_validate(payload)
+        from .priority import prioritize
+        return prioritize(Record.model_validate(payload))
 
     def history(self) -> list[dict]:
         with self.connect() as db:
