@@ -2,10 +2,12 @@
 
 ## Current status
 
-The data foundation and rules dashboard are implemented. Full-corpus automated cleaning,
-duplicate/template grouping, frozen experiment assignments, and source-specific training
-sampling are now implemented. See `reports/data_readiness.md` for measured counts and
-remaining readiness gates. Earlier milestone sections below are historical snapshots.
+The vendor-independent software milestone is complete: generic ingestion and extraction,
+evidence-linked findings, persistent reviews, seven dashboard pages, exports and evaluation
+tooling. See `reports/implementation_status.md` and `reports/completion_checklist.md` for
+delivery and verification. Representative human-adjudicated generalisation evaluation
+remains a separate, pending milestone. The source-dataset results and earlier milestone
+sections below are historical research snapshots, not arbitrary-vendor accuracy evidence.
 
 
 ## First milestone — 2026-09-09

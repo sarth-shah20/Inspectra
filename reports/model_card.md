@@ -1,44 +1,53 @@
-# Inspectra baseline model card
+# Inspectra model and extraction card
 
-This card describes the completed deterministic extraction rules and source-specific document
-classification baselines. It does not describe a trained NER model; no human-verified entity
-training or test set exists yet.
+## Current software
 
-| Experiment | Task | Train / validation / test | Test macro-F1 | Test weighted-F1 |
+The default extractor is a vendor-independent generic rule pipeline with optional English syntax
+coverage. The syntax model is the official `en_core_web_sm` 3.8.0, trained for general English
+language analysis, not material-defect detection. When unavailable, the UI explicitly identifies
+rules-only coverage. Arbitrary vendor identities and English industry identifiers are supported.
+
+Generic rules/configurations and optional terminology packs identify evidence and assertion cues.
+Contextual rules expand component coverage and explicit material phrases. Typed findings link only
+unambiguous local evidence. Unknown categories and unsupported clauses require review. Neither
+parsing success nor configurable terminology demonstrates generalisation accuracy.
+
+Scores (regex/rule/contextual/NER) are fixed heuristic scores, not calibrated probabilities.
+Review priorities use explicit linked report wording and are not engineering risk estimates.
+
+## Provisional NER
+
+`silver-ner-v1` was trained on AI-assisted labels. Its stored entity F1 is approximately 0.953 on
+that provisional label process, not human-reviewed vendor reports. It is opt-in and may be absent
+from a clone. Hybrid threshold policy v2 consistently filters all candidates and retains rules over
+overlapping NER spans. Its provisional inclusion threshold is 0.5; no probability calibration is claimed.
+`provisional_hybrid_calibration_v2.json` supersedes the earlier hybrid calibration report. Changes to
+the generic contextual core mean historical provisional scores must retain their recorded scope.
+
+## Stored source-specific classifiers
+
+| Artifact | Task | Train / validation / test | Test macro-F1 | Weighted-F1 |
 | --- | --- | ---: | ---: | ---: |
-| `fire-door-tfidf-v1` | Eight supplied fire-door classes | 2,107 / 679 / 682 | 0.7833 | 0.8568 |
-| `faa-part-condition-tfidf-v1` | 14 controlled FAA `PartCondition` labels | 56,611 / 44,663 / 42,454 | 0.7541 | 0.8420 |
-| `phmsa-cause-tfidf-v1` | Seven controlled PHMSA `CAUSE` labels | 2,797 / 614 / 599 | 0.6607 | 0.7887 |
+| fire-door-tfidf-v1 | Eight fire-door classes | 2,107 / 679 / 682 | 0.7833 | 0.8568 |
+| faa-part-condition-tfidf-v1 | 14 FAA PartCondition labels | 56,611 / 44,663 / 42,454 | 0.7541 | 0.8420 |
+| phmsa-cause-tfidf-v1 | Seven PHMSA cause labels | 2,797 / 614 / 599 | 0.6607 | 0.7887 |
 
-## Inputs and learning method
+These existing results were not retrained or re-evaluated during dashboard completion. Fire door
+uses word/character TF-IDF and Logistic Regression selected on validation data. FAA/PHMSA use
+source-specific word TF-IDF baselines. Structured target fields remain excluded from narrative inputs.
+Their frozen source/split/checksum provenance remains in individual artifact reports.
 
-Fire door uses word and character TF-IDF with multinomial Logistic Regression. It chose from six
-fixed configurations by validation macro-F1 and then initially evaluated the test set once. FAA
-and PHMSA use word TF-IDF 1–2 grams with a fixed `C=1`, balanced-class Logistic Regression model.
-FAA model text is only `Discrepancy`; PHMSA model text is only `NARRATIVE`; fire-door model text is
-only source-provided English text. Structured source labels are never concatenated into model text.
+They require explicitly selecting a compatible taxonomy and do not classify arbitrary industries,
+rank vendors, or establish entity extraction, calibration, transfer, or engineering-risk accuracy.
 
-The data snapshot is `corpus-v1`. Exact-event, exact-text, and conservative template duplicate
-families are grouped. Fire-door uses the supplied split after quarantining groups that cross it.
-FAA is year-aware: through 2023 train, 2024 validation, 2025 test, and partial 2026 demo-only.
-PHMSA uses the grouped split. Every saved model records the frozen manifest checksum and class counts.
+## Human validation status
 
-Saved-model evaluation was independently recomputed from the frozen snapshot to verify artifact
-integrity. Those recomputations did not select parameters, change thresholds, or inspect errors to
-modify the models.
+**Pending.** No representative, privacy-reviewed, independently double-annotated and adjudicated
+vendor-report gold set was supplied for this implementation. The new workflow supports validation
+without claiming it has occurred. Training selects fixed 10/20-epoch candidates only on validation
+partitions; test evaluation is separate. Fixed labels count unsupported test labels as misses.
 
-## Intended use and limits
-
-Use these models as transparent academic baselines and optional dashboard aids for their named
-source taxonomy. They do not classify arbitrary inspection reports, determine compliance, certify
-engineering risk, or rank vendors. Scores are not calibrated probabilities. An unfamiliar term or
-low-confidence outcome requires review. The datasets are source-specific; comparable cross-domain
-classification scores do not exist.
-
-The rule baseline extracts a limited configured vocabulary plus measurements/dates and uses local
-heuristics for negation, possibility, historical, and resolved language. Its rule scores are not
-calibrated. It has no gold entity-level precision, recall, F1, transfer, or abstention result.
-
-Remaining work: human privacy review; licences/codebooks; annotation guide and double-annotated
-gold entities; statistical NER and hybrid evaluation; calibrated abstention; held-out-domain entity
-evaluation; error analysis; corrections workflow; and analytics.
+Required measurements: entity/relationship/assertion precision and recall, per-vendor/template/
+industry/time transfer, review routing, parser failures, processing time and error analysis.
+Source permissions/codebooks, human privacy review, broader paraphrase checks, and sufficient
+independent evaluation groups remain prerequisites. See `generalisation_workflow.md`.
