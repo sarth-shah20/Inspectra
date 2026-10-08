@@ -85,7 +85,7 @@ with st.sidebar:
     domain = "general" if choice == "General" else choice.lower()
     silver_model_path = Path("models/silver-ner-v1")
     use_silver_ner = st.toggle(
-        "Enhanced finding coverage",
+        "Provisional NER coverage",
         value=False,
         disabled=not silver_model_path.exists(),
         help="Adds provisional pattern coverage. Every result still requires review.",
@@ -175,7 +175,7 @@ with analyze_tab:
                     st.error(f"{error['file']}: {error['error']}")
                 with st.spinner("Finding evidence…"):
                     results = [
-                        extract_hybrid(record, silver_model_path) if use_silver_ner else extract(record, pack_paths=pack_paths)
+                        extract_hybrid(record, silver_model_path, threshold=0.5, pack_paths=pack_paths) if use_silver_ner else extract(record, pack_paths=pack_paths)
                         for record in records
                     ]
                 st.session_state["analysis_signature"] = signature
@@ -253,14 +253,8 @@ with analyze_tab:
                 width="stretch",
             )
         with chart_right:
-            confidence_bands = Counter(
-                "High (95%+)" if entity.confidence >= 0.95 else "Medium (75–94%)" if entity.confidence >= 0.75 else "Review (below 75%)"
-                for entity in selected_entities
-            )
-            bars(
-                [{"band": name, "count": count} for name, count in confidence_bands.items()],
-                "band", "count", "Evidence confidence bands", "#7C3AED",
-            )
+            st.caption("Extraction scores are fixed heuristics, not probabilities of correctness.")
+            bars([{ "score": str(score), "count": count} for score, count in Counter(entity.confidence for entity in selected_entities).items()], "score", "count", "Heuristic scores")
         st.download_button("Download findings (CSV)", export_csv(results), "inspectra_findings.csv", "text/csv")
         st.download_button("Download findings (JSON)", export_json(results), "inspectra_findings.json", "application/json")
 
@@ -282,7 +276,8 @@ with analyze_tab:
                     st.success("Correction saved to review history.")
                 except (KeyError, TypeError, ValueError) as exc:
                     st.error(f"We could not save this correction: {exc}")
-        if domain == "construction":
+        if st.checkbox("Use the source-specific fire-door taxonomy", help="Only select for reports compatible with the fire-door inspection task."):
+
             with st.expander("Fire-door finding category"):
                 if st.button("Classify document", key="fire_door_classify"):
                     try:

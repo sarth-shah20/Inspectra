@@ -17,11 +17,13 @@ def load_silver_ner(model_path: str):
     return spacy.load(model_path)
 
 
-def extract_hybrid(record: Record, model_path: Path, *, threshold: float = 0.75) -> Record:
+def extract_hybrid(record: Record, model_path: Path, *, threshold: float = 0.5, contextual: bool = True, pack_paths: tuple[str, ...] = ()) -> Record:
     """Merge strict-token NER spans into rules without replacing deterministic evidence."""
-    result = extract(record)
+    if not 0 <= threshold <= 1:
+        raise ValueError("Threshold must be between zero and one")
+    result = extract(record, contextual=contextual, pack_paths=pack_paths)
     nlp = load_silver_ner(str(model_path))
-    entities = list(result.entities)
+    entities = [entity for entity in result.entities if entity.confidence >= threshold]
     for span in nlp(record.display_text).ents:
         if 0.5 < threshold:
             continue
@@ -43,7 +45,8 @@ def extract_hybrid(record: Record, model_path: Path, *, threshold: float = 0.75)
     payload = result.model_dump()
     metadata = dict(result.document_metadata)
     metadata.update(
-        hybrid_model="silver-ner-v1",
+        hybrid_model=str(model_path),
+        hybrid_policy="all-candidates-threshold-v2",
         hybrid_model_provenance="ai_silver_labels_not_human_validated",
         hybrid_threshold=str(threshold),
         confidence_kind="uncalibrated_rule_and_silver_ner_scores",
@@ -53,7 +56,8 @@ def extract_hybrid(record: Record, model_path: Path, *, threshold: float = 0.75)
     payload.update(
         entities=[entity.model_dump() for entity in entities],
         document_metadata=metadata,
-        mapping_status="review_required" if defects else "unmapped",
-        assertion_status=next(iter({entity.assertion for entity in defects}), "unknown"),
+        mapping_status="review_required" if defects or result.review_candidates else "unmapped",
+        assertion_status=next(iter({entity.assertion for entity in defects})) if len({entity.assertion for entity in defects}) == 1 else "unknown",
+        reported_severity="; ".join(dict.fromkeys(e.text for e in entities if e.label == "REPORTED_SEVERITY" and e.assertion == "present")) or None,
     )
     return Record.model_validate(payload)
