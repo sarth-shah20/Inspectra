@@ -1,5 +1,6 @@
 """Inspectra user-facing inspection narrative dashboard."""
 
+import os
 import hashlib
 import json
 from collections import Counter
@@ -18,7 +19,8 @@ from inspection_nlp.export import export_csv, export_json, highlight
 from inspection_nlp.extraction import extract
 from inspection_nlp.hybrid import extract_hybrid
 from inspection_nlp.findings import relationship_rows
-from inspection_nlp.reviews import append_review, review_history, review_payload
+from inspection_nlp.reviews import review_payload
+from inspection_nlp.storage import Library
 
 st.set_page_config(page_title="Inspectra", page_icon="🔎", layout="wide", initial_sidebar_state="expanded")
 
@@ -77,6 +79,7 @@ def source_analytics():
     return json.loads(path.read_text()) if path.exists() else {"domains": {}}
 
 
+library = Library(Path(os.environ.get("INSPECTRA_DB", "data/local/inspectra.sqlite3")))
 st.title("🔎 Inspectra")
 st.caption("Turn inspection narratives into structured, reviewable findings.")
 
@@ -179,6 +182,7 @@ with analyze_tab:
                         extract_hybrid(record, silver_model_path, threshold=0.5, pack_paths=pack_paths) if use_silver_ner else extract(record, pack_paths=pack_paths)
                         for record in records
                     ]
+                results = library.save_run(results, {"signature": signature, "domain": domain, "hybrid": use_silver_ner})
                 st.session_state["analysis_signature"] = signature
                 st.session_state["results"] = results
                 st.session_state.pop("fire_door_prediction", None)
@@ -186,7 +190,8 @@ with analyze_tab:
                 st.session_state.pop("results", None)
                 st.error(f"We could not analyze this report: {exc}")
 
-    results = st.session_state.get("results", [])
+    show_library = st.checkbox("Show saved report library")
+    results = library.records() if show_library else st.session_state.get("results", [])
     if results:
         summary = review_summary(results)
         metric_columns = st.columns(4)
@@ -275,7 +280,9 @@ with analyze_tab:
             if st.button("Save correction", key=f"save_{record.record_id}"):
                 try:
                     payload = review_payload(record, editor_rows if isinstance(editor_rows, list) else editor_rows.to_dict("records"), review_note, links if isinstance(links, list) else links.to_dict("records"))
-                    append_review(Path("data/annotations/reviews.jsonl"), payload)
+                    corrected = library.save_review(record, payload)
+                    if not show_library:
+                        st.session_state["results"][record_index] = corrected
                     st.success("Correction saved to review history.")
                 except (KeyError, TypeError, ValueError) as exc:
                     st.error(f"We could not save this correction: {exc}")
@@ -300,9 +307,11 @@ with analyze_tab:
 with history_tab:
     st.subheader("Saved corrections")
     try:
-        history = review_history(Path("data/annotations/reviews.jsonl"))
+        history = library.history()
+        if st.button("Import legacy reviews"):
+            st.write(library.import_legacy(Path("data/annotations/reviews.jsonl")))
         if history:
-            rows = [{"Reviewed": item["reviewed_at"], "Domain": item["domain"].title(), "Findings": len(item["corrected_entities"]), "Note": item["note"]} for item in history]
+            rows = history
             st.dataframe(rows, hide_index=True, width="stretch")
         else:
             st.info("Corrections saved from the review panel will appear here.")

@@ -14,7 +14,8 @@ def test_save_and_invalidate(monkeypatch, tmp_path):
     assert app.session_state['results']
     next(b for b in app.button if b.label == "Save correction").click().run()
     assert not app.exception
-    assert (tmp_path / 'data/annotations/reviews.jsonl').exists()
+    assert (tmp_path / 'data/local/inspectra.sqlite3').exists()
+    assert app.session_state['results'][0].label_origin == 'human'
     app.text_area[0].set_value('Changed report.').run()
     assert 'results' not in app.session_state
 
