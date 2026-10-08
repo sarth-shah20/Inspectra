@@ -30,6 +30,16 @@ class Entity(BaseModel):
     extraction_method: Literal["regex", "ruler", "ner", "source", "human", "contextual"]
 
 
+class Finding(BaseModel):
+    finding_id: str
+    defect: Entity
+    category: str | None = None
+    links: dict[str, list[Entity]] = Field(default_factory=dict)
+    ambiguous: bool = False
+    priority: Literal["high", "normal", "low", "disabled"] = "normal"
+    priority_reasons: list[str] = Field(default_factory=list)
+
+
 class ReviewCandidate(BaseModel):
     text: str
     evidence_start: int = Field(ge=0)
@@ -62,6 +72,7 @@ class Record(BaseModel):
     review_candidates: list[ReviewCandidate] = Field(default_factory=list)
     clean_to_display: list[int] = Field(default_factory=list)
     entities: list[Entity] = Field(default_factory=list)
+    findings: list[Finding] = Field(default_factory=list)
     relations: list[dict] = Field(default_factory=list)
     reported_severity: str | None = None
     review_priority: float | None = None
@@ -81,4 +92,16 @@ class Record(BaseModel):
         for entity in [*self.entities, *self.review_candidates]:
             if self.display_text[entity.evidence_start : entity.evidence_end] != entity.text:
                 raise ValueError("Entity evidence must match display_text offsets")
+        evidence_keys = {(e.label, e.evidence_start, e.evidence_end, e.text) for e in self.entities}
+        for finding in self.findings:
+            if finding.defect.label != "DEFECT":
+                raise ValueError("Finding must reference a defect")
+            for label, evidence in finding.links.items():
+                if label not in {"COMPONENT", "MATERIAL", "MEASUREMENT", "REPORTED_SEVERITY", "CAUSE", "CORRECTIVE_ACTION", "INSPECTION_METHOD", "LOCATION"}:
+                    raise ValueError("Unsupported relationship label")
+                if any(e.label != label for e in evidence):
+                    raise ValueError("Relationship label must match evidence")
+            for e in [finding.defect, *(item for evidence in finding.links.values() for item in evidence)]:
+                if (e.label, e.evidence_start, e.evidence_end, e.text) not in evidence_keys:
+                    raise ValueError("Finding evidence must reference this record")
         return self

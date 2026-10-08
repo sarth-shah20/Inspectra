@@ -17,6 +17,7 @@ from inspection_nlp.metadata import FIELDS, load_profiles, save_profile
 from inspection_nlp.export import export_csv, export_json, highlight
 from inspection_nlp.extraction import extract
 from inspection_nlp.hybrid import extract_hybrid
+from inspection_nlp.findings import relationship_rows
 from inspection_nlp.reviews import append_review, review_history, review_payload
 
 st.set_page_config(page_title="Inspectra", page_icon="🔎", layout="wide", initial_sidebar_state="expanded")
@@ -268,10 +269,12 @@ with analyze_tab:
                 num_rows="dynamic",
                 width="stretch",
             )
+            st.caption("Relationships reference evidence offsets in this narrative. Remove an association to leave it unlinked.")
+            links = st.data_editor(relationship_rows(record), num_rows="dynamic", key=f"links_{record.record_id}", disabled=["text"], hide_index=True)
             review_note = st.text_area("Review note", key=f"note_{record.record_id}")
             if st.button("Save correction", key=f"save_{record.record_id}"):
                 try:
-                    payload = review_payload(record, editor_rows if isinstance(editor_rows, list) else editor_rows.to_dict("records"), review_note)
+                    payload = review_payload(record, editor_rows if isinstance(editor_rows, list) else editor_rows.to_dict("records"), review_note, links if isinstance(links, list) else links.to_dict("records"))
                     append_review(Path("data/annotations/reviews.jsonl"), payload)
                     st.success("Correction saved to review history.")
                 except (KeyError, TypeError, ValueError) as exc:

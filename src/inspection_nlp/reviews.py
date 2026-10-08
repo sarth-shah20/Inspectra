@@ -9,6 +9,7 @@ from itertools import pairwise
 from pathlib import Path
 
 from .schemas import Entity, Record
+from .findings import edit_relationships, with_findings
 
 
 def human_entities(record: Record, rows: list[dict]) -> list[Entity]:
@@ -37,9 +38,15 @@ def human_entities(record: Record, rows: list[dict]) -> list[Entity]:
     return entities
 
 
-def review_payload(record: Record, edited_rows: list[dict], note: str) -> dict:
+def review_payload(record: Record, edited_rows: list[dict], note: str, relationship_edits: list[dict] | None = None) -> dict:
     corrected = human_entities(record, edited_rows)
+    payload = record.model_dump()
+    payload.update(entities=[e.model_dump() for e in corrected], findings=[], relations=[])
+    reviewed = with_findings(Record.model_validate(payload))
+    if relationship_edits is not None:
+        reviewed = edit_relationships(reviewed, relationship_edits)
     return {
+        "corrected_findings": [f.model_dump() for f in reviewed.findings],
         "reviewed_at": datetime.now(UTC).isoformat(),
         "record_id": record.record_id,
         "source_dataset": record.source_dataset,

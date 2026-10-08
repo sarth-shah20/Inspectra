@@ -1,0 +1,13 @@
+version: defect-categories-v1
+categories:
+  crack: [crack, cracks, cracked, fracture, fractured]
+  leak: [leak, leaks, leaking]
+  corrosion: [corrosion, corroded, pitting]
+  damage: [dent, dented, scratch, scratched, broken, damaged, deformation, abrasion]
+  failure: [failed, failure, inoperative]
+  missing: [missing]
+  looseness: [loose]
+  wear: [worn]
+  delamination: [delamination, delaminated]
+  contamination: [contamination]
+  porosity: [porosity]

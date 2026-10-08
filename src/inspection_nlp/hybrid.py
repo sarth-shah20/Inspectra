@@ -9,6 +9,7 @@ import spacy
 
 from .extraction import assertion, extract
 from .schemas import Entity, Record
+from .findings import with_findings
 
 
 @lru_cache(maxsize=2)
@@ -60,4 +61,4 @@ def extract_hybrid(record: Record, model_path: Path, *, threshold: float = 0.5, 
         assertion_status=next(iter({entity.assertion for entity in defects})) if len({entity.assertion for entity in defects}) == 1 else "unknown",
         reported_severity="; ".join(dict.fromkeys(e.text for e in entities if e.label == "REPORTED_SEVERITY" and e.assertion == "present")) or None,
     )
-    return Record.model_validate(payload)
+    return with_findings(Record.model_validate({**payload, "findings": [], "relations": []}))

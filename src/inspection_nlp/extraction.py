@@ -8,6 +8,7 @@ import spacy
 import yaml
 
 from .schemas import Entity, Record
+from .findings import with_findings
 from .contextual import contextual_components, english_model, unmatched_clauses
 
 DOMAINS = {"general", "construction", "aviation", "pipeline"}
@@ -50,7 +51,7 @@ def assertion(text: str, start: int, end: int) -> str:
     after = re.split(r"\b(?:and|or)\b", after)[0]
     before = " ".join(before.split()[-6:])
     after = " ".join(after.split()[:6])
-    if re.search(r"\b(?:no|without|neither|denies)\b", before) or re.match(
+    if re.search(r"\b(?:failed to (?:find|detect|observe)|no|without|neither|denies)\b", before) or re.match(
         r"\s*(?:was |is |were )?(?:not (?:found|observed|detected)|absent)\b", after
     ):
         return "negated"
@@ -77,6 +78,8 @@ def extract(record: Record, *, use_domain: bool = True, contextual: bool = True,
         for match in pattern.finditer(text):
             candidates.append((match.start(), match.end(), label, "regex", 0.95))
     for span in nlp(text).ents:
+        if span.label_ == "DEFECT" and span.text.lower() == "failed" and re.match(r"\s+to\s+(?:find|detect|observe)\b", text[span.end_char:], re.I):
+            continue
         candidates.append((span.start_char, span.end_char, span.label_, "ruler", 0.75))
     entities = []
     for start, end, label, method, confidence in candidates:
@@ -125,4 +128,4 @@ def extract(record: Record, *, use_domain: bool = True, contextual: bool = True,
     ]
     if severity:
         payload["reported_severity"] = "; ".join(dict.fromkeys(severity))
-    return Record.model_validate(payload)
+    return with_findings(Record.model_validate({**payload, "findings": [], "relations": []}))
