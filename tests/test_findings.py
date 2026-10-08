@@ -38,3 +38,24 @@ def test_assertions_and_uncategorized():
         ("Failed to find a crack.", "negated"),
     ]:
         assert report(text).findings[0].defect.assertion == status
+
+
+def test_added_human_defect_clears_unsupported_candidate(tmp_path):
+    from inspection_nlp.storage import Library
+
+    lib = Library(tmp_path / "library.sqlite3")
+    r = lib.save_run([report("Housing exhibits flensing.")], {})[0]
+    assert r.review_candidates
+    start = r.display_text.index("flensing")
+    rows = [
+        {
+            "label": "DEFECT",
+            "evidence_start": start,
+            "evidence_end": start + 8,
+            "assertion": "present",
+        }
+    ]
+    correction = review_payload(r, rows, "Explicit condition annotated")
+    reviewed = lib.save_review(r, correction)
+    assert reviewed.findings and not reviewed.review_candidates
+    assert reviewed.findings[0].category is None

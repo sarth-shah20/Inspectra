@@ -124,6 +124,9 @@ class Library:
             relations=[],
             label_origin="human",
             report_status=workflow,
+            review_candidates=correction.get(
+                "corrected_review_candidates", payload["review_candidates"]
+            ),
         )
         reviewed = with_findings(Record.model_validate(payload))
         if "corrected_findings" in correction:

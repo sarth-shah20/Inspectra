@@ -8,6 +8,7 @@ from datetime import UTC, datetime
 from itertools import pairwise
 from pathlib import Path
 
+from .contextual import unmatched_clauses
 from .findings import edit_relationships, with_findings
 from .schemas import Entity, Record
 
@@ -44,10 +45,12 @@ def review_payload(
     corrected = human_entities(record, edited_rows)
     payload = record.model_dump()
     payload.update(entities=[e.model_dump() for e in corrected], findings=[], relations=[])
+    payload["review_candidates"] = unmatched_clauses(record.display_text, corrected)
     reviewed = with_findings(Record.model_validate(payload))
     if relationship_edits is not None:
         reviewed = edit_relationships(reviewed, relationship_edits)
     return {
+        "corrected_review_candidates": [c.model_dump() for c in reviewed.review_candidates],
         "corrected_findings": [f.model_dump() for f in reviewed.findings],
         "reviewed_at": datetime.now(UTC).isoformat(),
         "record_id": record.record_id,

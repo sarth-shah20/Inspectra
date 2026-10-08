@@ -343,9 +343,16 @@ def select_record(records):
 
 
 def show_record(record, library, settings):
-    st.subheader(
-        f"Findings · {'Reviewed' if record.report_status == 'reviewed' else 'Needs review' if record.mapping_status == 'review_required' else 'No supported defect extracted'}"
+    state = (
+        "Reviewed"
+        if record.report_status == "reviewed"
+        else "Needs review"
+        if record.mapping_status == "review_required"
+        else "Explicit no-defect wording"
+        if record.absence_statements
+        else "No supported defect extracted"
     )
+    st.subheader(f"Findings · {state}")
     st.caption(
         f"Extraction: {record.document_metadata.get('extraction_mode', 'unknown')} · Industry: {record.domain} · Scores are heuristic, not calibrated probabilities."
     )
@@ -370,6 +377,11 @@ def show_record(record, library, settings):
             for f in record.findings
         ]
     )
+    if record.absence_statements:
+        st.info(
+            "The report explicitly states an absence of defects in the evidence below. Other findings, if present, still need review."
+        )
+        table([c.model_dump() for c in record.absence_statements])
     if record.quality_flags:
         st.warning("Extraction quality: " + "; ".join(record.quality_flags))
     if record.review_candidates:

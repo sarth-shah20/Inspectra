@@ -9,7 +9,7 @@ import spacy
 import yaml
 
 from .artifacts import artifact_fingerprint
-from .contextual import contextual_components, english_model, unmatched_clauses
+from .contextual import absence_statements, contextual_components, english_model, unmatched_clauses
 from .findings import with_findings
 from .schemas import Entity, Record
 
@@ -175,6 +175,7 @@ def extract(
     payload.update(
         entities=[e.model_dump() for e in entities],
         document_metadata=metadata,
+        absence_statements=absence_statements(text),
         review_candidates=review_candidates,
         mapping_status="review_required" if defects or review_candidates else "unmapped",
         assertion_status=next(iter(assertions)) if len(assertions) == 1 else "unknown",

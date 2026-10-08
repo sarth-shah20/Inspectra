@@ -53,3 +53,13 @@ def test_explicit_unfamiliar_material_and_compound_defect():
     assert any(e.label == "MEASUREMENT" and e.text == "15 um" for e in result.entities)
     compound = extraction.extract(parse_document(b"Ceramic spindle crack observed.", "new.txt")[0])
     assert any(e.label == "COMPONENT" and e.text == "spindle" for e in compound.entities)
+
+
+def test_explicit_absence_is_not_unknown_extraction():
+    result = extraction.extract(parse_document(b"No defects were found.", "clean.txt")[0])
+    assert not result.findings and not result.review_candidates
+    assert result.absence_statements[0].text == "No defects were found"
+    mixed = extraction.extract(
+        parse_document(b"No defects were found; spindle leaking.", "mixed.txt")[0]
+    )
+    assert mixed.absence_statements and mixed.findings[0].defect.assertion == "present"

@@ -99,8 +99,10 @@ def unmatched_clauses(text: str, entities: list) -> list[dict]:
     candidates = []
     for start, end in clauses(text):
         clause = text[start:end]
-        if INSPECTION_CUE.search(clause) and not any(
-            e.label == "DEFECT" and start <= e.evidence_start < end for e in entities
+        if (
+            INSPECTION_CUE.search(clause)
+            and not ABSENCE.search(clause)
+            and not any(e.label == "DEFECT" and start <= e.evidence_start < end for e in entities)
         ):
             left = len(clause) - len(clause.lstrip())
             right = len(clause.rstrip())
@@ -132,3 +134,21 @@ def contextual_materials(text: str, entities: list, nlp) -> list[tuple]:
                 if not any(a < e.evidence_end and b > e.evidence_start for e in entities):
                     candidates.append((a, b, "MATERIAL", "contextual", 0.6))
     return candidates
+
+
+ABSENCE = re.compile(
+    r"\bno\s+(?:material\s+)?(?:defects?|deficiencies|damage)\s+(?:(?:was|were)\s+)?(?:found|observed|detected)\b",
+    re.IGNORECASE,
+)
+
+
+def absence_statements(text: str) -> list[dict]:
+    return [
+        {
+            "text": m.group(),
+            "evidence_start": m.start(),
+            "evidence_end": m.end(),
+            "reason": "Explicit no-defect report wording; not an independent assessment",
+        }
+        for m in ABSENCE.finditer(text)
+    ]

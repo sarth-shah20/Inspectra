@@ -70,6 +70,7 @@ class Record(BaseModel):
     report_metadata: dict[str, str] = Field(default_factory=dict)
     metadata_provenance: dict[str, str] = Field(default_factory=dict)
     quality_flags: list[str] = Field(default_factory=list)
+    absence_statements: list[ReviewCandidate] = Field(default_factory=list)
     review_candidates: list[ReviewCandidate] = Field(default_factory=list)
     clean_to_display: list[int] = Field(default_factory=list)
     entities: list[Entity] = Field(default_factory=list)
@@ -92,7 +93,7 @@ class Record(BaseModel):
                 -1
             ] != len(self.display_text):
                 raise ValueError("Invalid normalized offset map bounds")
-        for entity in [*self.entities, *self.review_candidates]:
+        for entity in [*self.entities, *self.review_candidates, *self.absence_statements]:
             if self.display_text[entity.evidence_start : entity.evidence_end] != entity.text:
                 raise ValueError("Entity evidence must match display_text offsets")
         evidence_keys = {
