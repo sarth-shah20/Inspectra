@@ -4,7 +4,8 @@ from inspection_nlp.documents import parse_document
 from inspection_nlp.hybrid import extract_hybrid, load_silver_ner
 
 
-def test_hybrid_adds_non_overlapping_silver_ner_span(tmp_path):
+def test_hybrid_adds_non_overlapping_silver_ner_span(tmp_path, monkeypatch):
+    monkeypatch.setattr("inspection_nlp.extraction.english_model", lambda: None)
     model = spacy.blank("en")
     ruler = model.add_pipe("entity_ruler")
     ruler.add_patterns([{"label": "COMPONENT", "pattern": "zorbulator"}])

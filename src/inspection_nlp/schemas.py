@@ -27,7 +27,14 @@ class Entity(BaseModel):
     evidence_end: int = Field(gt=0)
     assertion: Literal["present", "negated", "possible", "historical", "resolved"]
     confidence: float = Field(ge=0, le=1)
-    extraction_method: Literal["regex", "ruler", "ner", "source", "human"]
+    extraction_method: Literal["regex", "ruler", "ner", "source", "human", "contextual"]
+
+
+class ReviewCandidate(BaseModel):
+    text: str
+    evidence_start: int = Field(ge=0)
+    evidence_end: int = Field(gt=0)
+    reason: str
 
 
 class Record(BaseModel):
@@ -52,6 +59,7 @@ class Record(BaseModel):
     report_metadata: dict[str, str] = Field(default_factory=dict)
     metadata_provenance: dict[str, str] = Field(default_factory=dict)
     quality_flags: list[str] = Field(default_factory=list)
+    review_candidates: list[ReviewCandidate] = Field(default_factory=list)
     clean_to_display: list[int] = Field(default_factory=list)
     entities: list[Entity] = Field(default_factory=list)
     relations: list[dict] = Field(default_factory=list)
@@ -70,7 +78,7 @@ class Record(BaseModel):
                 raise ValueError("Invalid normalized offset map length")
             if self.clean_to_display != sorted(self.clean_to_display) or self.clean_to_display[-1] != len(self.display_text):
                 raise ValueError("Invalid normalized offset map bounds")
-        for entity in self.entities:
+        for entity in [*self.entities, *self.review_candidates]:
             if self.display_text[entity.evidence_start : entity.evidence_end] != entity.text:
                 raise ValueError("Entity evidence must match display_text offsets")
         return self

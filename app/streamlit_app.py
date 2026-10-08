@@ -11,6 +11,7 @@ import streamlit as st
 
 from inspection_nlp.analytics import review_summary
 from inspection_nlp.classification import predict
+from inspection_nlp.contextual import english_model
 from inspection_nlp.documents import parse_batch, table_headers
 from inspection_nlp.metadata import FIELDS, load_profiles, save_profile
 from inspection_nlp.export import export_csv, export_json, highlight
@@ -89,6 +90,12 @@ with st.sidebar:
         disabled=not silver_model_path.exists(),
         help="Adds provisional pattern coverage. Every result still requires review.",
     )
+    if english_model() is None:
+        st.warning("Rules-only coverage: pinned English model unavailable")
+    custom_industry = st.text_input("Other industry (optional)")
+    domain = custom_industry.strip().lower() or domain
+    pack_text = st.text_input("Optional terminology pack paths (comma-separated)")
+    pack_paths = tuple(x.strip() for x in pack_text.split(",") if x.strip())
     st.divider()
     st.caption("Inspectra supports machine-readable PDF, DOCX, TXT, CSV, TSV, and XLSX files.")
     st.caption("Do not upload sensitive material unless you are authorized to process it.")
@@ -149,7 +156,7 @@ with analyze_tab:
         """)
         st.info("Findings support review; they do not determine compliance or engineering risk.")
 
-    signature = hashlib.sha256(repr(([(u.name, u.getvalue()) for u in uploads], paste, text_column, tabular_txt, encoding, domain, use_silver_ner, metadata, columns, date_format)).encode()).hexdigest()
+    signature = hashlib.sha256(repr(([(u.name, u.getvalue()) for u in uploads], paste, text_column, tabular_txt, encoding, domain, use_silver_ner, metadata, columns, date_format, pack_paths)).encode()).hexdigest()
     if st.session_state.get("analysis_signature") != signature:
         st.session_state.pop("results", None)
         st.session_state.pop("fire_door_prediction", None)
@@ -168,7 +175,7 @@ with analyze_tab:
                     st.error(f"{error['file']}: {error['error']}")
                 with st.spinner("Finding evidence…"):
                     results = [
-                        extract_hybrid(record, silver_model_path) if use_silver_ner else extract(record)
+                        extract_hybrid(record, silver_model_path) if use_silver_ner else extract(record, pack_paths=pack_paths)
                         for record in records
                     ]
                 st.session_state["analysis_signature"] = signature

@@ -1,7 +1,7 @@
-version: generic-v1
+version: generic-v2
 entities:
-  DEFECT: [crack, cracks, cracked, leak, leaks, leaking, corrosion, corroded, dent, dented, scratch, scratched, broken, damaged, missing, loose, worn, failed, failure]
-  MATERIAL: [steel, aluminum, aluminium, copper, rubber, plastic]
+  DEFECT: [crack, cracks, cracked, leak, leaks, leaking, corrosion, corroded, dent, dented, scratch, scratched, broken, damaged, missing, loose, worn, failed, failure, pitting, porosity, blistering, fractured, fracture, deformation, abrasion, contamination, delamination, delaminated]
+  MATERIAL: [ceramic, titanium, stainless steel, brass, glass, resin, composite, steel, aluminum, aluminium, copper, rubber, plastic]
   INSPECTION_METHOD: [visual inspection, ultrasonic testing, pressure test]
-  CORRECTIVE_ACTION: [replaced, repaired, adjusted, cleaned, replacement required, repair required]
+  CORRECTIVE_ACTION: [replaced, repaired, adjusted, cleaned, replacement required, repair required, replace immediately, urgent replacement, immediate repair, urgent repair]
   REPORTED_SEVERITY: [critical, severe, minor, major]

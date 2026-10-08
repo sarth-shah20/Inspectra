@@ -7,8 +7,8 @@ from inspection_nlp.export import export_csv, export_json, highlight
 from inspection_nlp.extraction import extract
 
 
-def run(text, domain="general"):
-    return extract(parse_document(text.encode(), "test.txt", domain=domain)[0])
+def run(text, domain="general", contextual=True):
+    return extract(parse_document(text.encode(), "test.txt", domain=domain)[0], contextual=contextual)
 
 
 @pytest.mark.parametrize(
@@ -42,7 +42,7 @@ def test_domain_ablation():
         ("pipeline", "valve"),
     ]:
         text = f"The {component} is damaged."
-        assert not any(e.label == "COMPONENT" for e in run(text).entities)
+        assert not any(e.label == "COMPONENT" for e in run(text, contextual=False).entities)
         assert any(e.label == "COMPONENT" for e in run(text, domain).entities)
         assert any(e.label == "DEFECT" for e in run(text).entities)
 
@@ -50,7 +50,8 @@ def test_domain_ablation():
 def test_unfamiliar_term_abstention():
     result = run("The zorbulator exhibits flensing.")
     assert not result.entities
-    assert result.mapping_status == "unmapped"
+    assert result.mapping_status == "review_required"
+    assert result.review_candidates
     assert run("The zorbulator is cracked.").mapping_status == "review_required"
 
 
