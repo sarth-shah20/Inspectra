@@ -785,10 +785,6 @@ def main(page: str | None = None):
     records = with_recurrence(
         [prioritize(r, enabled) for r in library.records(reviewed=not original)]
     )
-    if any(r.document_metadata.get("data_provenance", "").startswith("synthetic") for r in records):
-        st.info(
-            "This library includes labelled synthetic demonstrations; these are not real inspection outcomes."
-        )
     scope, rows, filters = filter_sidebar(records)
     settings["priority"] = enabled
 
