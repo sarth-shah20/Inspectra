@@ -1,3 +1,10 @@
+# Vendor-independent dashboard quick start
+
+Install `python -m pip install -e ".[dev,english]"`, then run `streamlit run app/streamlit_app.py`.
+The pinned English syntax model enables contextual coverage; missing models produce an explicit rules-only mode.
+After dependencies/model setup, core analysis runs locally without network access.
+See `samples/vendor_demo/README.md` for a synthetic cross-industry walkthrough and `reports/local_library.md` for backups.
+
 # Inspectra
 
 Inspectra is a domain-adaptive text mining project for construction/fire-door inspections,

@@ -15,7 +15,7 @@ from . import analytics
 from .classification import predict
 from .contextual import english_model
 from .documents import parse_batch, table_headers
-from .export import export_csv, export_json, highlight
+from .export import export_csv, export_json, export_html, highlight
 from .extraction import extract
 from .findings import relationship_rows
 from .hybrid import extract_hybrid
@@ -43,7 +43,7 @@ def evidence_table(records, rows, selection=None):
         choices = list(dict.fromkeys(r['record_id'] for r in rows))
         selected = st.selectbox('Inspect supporting narrative', choices, key='evidence_drill')
         record = next(r for r in records if r.record_id == selected)
-        st.markdown(highlight(record), unsafe_allow_html=True)
+        st.markdown(f'<div style="white-space:pre-wrap">{highlight(record)}</div>', unsafe_allow_html=True)
         st.caption(f'{record.source_document} · {record.document_metadata.get("page", "document")}')
 
 
@@ -199,7 +199,7 @@ def select_record(records):
 def show_record(record, library, settings):
     st.subheader(f'Findings · {"Reviewed" if record.report_status == "reviewed" else "Needs review" if record.mapping_status == "review_required" else "No supported defect extracted"}')
     st.caption(f"Extraction: {record.document_metadata.get('extraction_mode', 'unknown')} · Industry: {record.domain} · Scores are heuristic, not calibrated probabilities.")
-    st.markdown(highlight(record), unsafe_allow_html=True)
+    st.markdown(f'<div style="white-space:pre-wrap">{highlight(record)}</div>', unsafe_allow_html=True)
     st.caption('Highlighted spans show extracted evidence; their labels and assertions appear below.')
     table([e.model_dump() for e in record.entities])
     table([{'Defect': f.defect.text, 'Category': f.category or 'Uncategorized', 'Assertion': f.defect.assertion,
@@ -256,7 +256,8 @@ def show_record(record, library, settings):
 
 def downloads(records):
     st.download_button('Download findings (CSV)', export_csv(records), 'inspectra_findings.csv', 'text/csv')
-    st.download_button('Download findings (JSON)', export_json(records), 'inspectra_findings.json', 'application/json')
+    st.download_button('Download findings (JSON)', export_json(records, versioned=True), 'inspectra_findings.json', 'application/json')
+    st.download_button('Download summary (HTML)', export_html(records), 'inspectra_summary.html', 'text/html')
 
 
 def overview_page(records, rows):

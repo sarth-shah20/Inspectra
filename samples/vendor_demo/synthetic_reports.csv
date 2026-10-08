@@ -1,0 +1,8 @@
+Inspection,Company,InspectionDate,ReportNumber,Product,Batch,Asset
+Ceramic spindle cracked at 3 mm.,Orion Loomworks,2026-01-10,DEMO-001,Textile loom,LOT-A,LOOM-1
+No crack observed on the spindle.,Orion Loomworks,2026-01-20,DEMO-002,Textile loom,LOT-A,LOOM-2
+Critical ceramic spindle cracked. Replace immediately.,Orion Loomworks,2026-02-10,DEMO-003,Textile loom,LOT-A,LOOM-1
+Resin housing exhibits flensing.,Nova Med Assemblies,2026-02-11,DEMO-004,Diagnostic enclosure,LOT-B,ENC-1
+Copper conductor damaged; steel roller worn.,Meridian Electronics,2026-03-01,DEMO-005,Connector fixture,LOT-C,FIX-1
+Previous leak documented. The crack was repaired.,Nova Med Assemblies,2026-03-02,DEMO-006,Diagnostic enclosure,LOT-B,ENC-2
+No corrosion detected.,Meridian Electronics,,DEMO-007,Connector fixture,LOT-C,FIX-2

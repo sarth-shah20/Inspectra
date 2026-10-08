@@ -136,8 +136,9 @@ def export_scope(records: list[Record], rows: list[dict]) -> list[Record]:
         findings = [f for f in record.findings if f.finding_id in selected]
         keys = {(e.label, e.evidence_start, e.evidence_end) for f in findings
                 for e in [f.defect, *(e for values in f.links.values() for e in values)]}
+        retain_all = len(findings) == len(record.findings)
         payload.update(findings=[f.model_dump() for f in findings],
-            entities=[e.model_dump() for e in record.entities if (e.label, e.evidence_start, e.evidence_end) in keys],
+            entities=[e.model_dump() for e in record.entities if retain_all or (e.label, e.evidence_start, e.evidence_end) in keys],
             relations=[r for r in record.relations if r.get('finding_id') in selected])
         output.append(Record.model_validate(payload))
     return output
