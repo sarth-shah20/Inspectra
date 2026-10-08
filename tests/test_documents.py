@@ -1,4 +1,5 @@
 import io
+from datetime import date
 
 import pymupdf
 import pytest
@@ -74,6 +75,23 @@ def test_missing_column_and_bad_input():
         parse_document(b"  ", "empty.txt")
     with pytest.raises(ValueError, match="Supported formats"):
         parse_document(b"abc", "report.exe")
+
+
+def test_xlsx_native_date_metadata():
+    workbook = Workbook()
+    workbook.active.append(["Narrative", "Inspected", "Supplier"])
+    workbook.active.append(["Rotor cracked.", date(2026, 10, 9), "New Vendor"])
+    buffer = io.BytesIO()
+    workbook.save(buffer)
+    record = parse_document(
+        buffer.getvalue(),
+        "new-vendor.xlsx",
+        text_column="Narrative",
+        metadata_columns={"report_date": "Inspected", "vendor": "Supplier"},
+    )[0]
+    assert record.report_metadata["report_date"] == "2026-10-09"
+    assert record.report_metadata["vendor"] == "new vendor"
+    assert record.clean_text == "Rotor cracked."
 
 
 def test_text_redaction():

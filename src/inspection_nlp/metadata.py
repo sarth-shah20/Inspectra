@@ -1,7 +1,7 @@
 """Explicit user mappings; metadata never becomes narrative model input."""
 
 import json
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 from pathlib import Path
 
 FIELDS = ("vendor", "report_number", "report_date", "product", "batch", "asset_id")
@@ -23,16 +23,23 @@ def normalize_metadata(values: dict, date_format: str | None = None) -> dict[str
     result = {
         k: " ".join(str(v).split()) for k, v in values.items() if v is not None and str(v).strip()
     }
-    if result.get("report_date"):
+    native_date = values.get("report_date")
+    if isinstance(native_date, date):
+        result["report_date"] = (
+            native_date.date().isoformat()
+            if isinstance(native_date, datetime)
+            else native_date.isoformat()
+        )
+    elif result.get("report_date"):
         try:
-            date = datetime.strptime(result["report_date"], date_format or "%Y-%m-%d").replace(
-                tzinfo=UTC
-            )
+            parsed_date = datetime.strptime(
+                result["report_date"], date_format or "%Y-%m-%d"
+            ).replace(tzinfo=UTC)
         except ValueError as exc:
             raise ValueError(
                 "Report date is ambiguous or invalid; select its date format."
             ) from exc
-        result["report_date"] = date.date().isoformat()
+        result["report_date"] = parsed_date.date().isoformat()
     return result
 
 
